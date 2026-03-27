@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Magic Word Parts House</title>
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 body {
-  font-family: Comic Sans MS;
+  font-family: Comic Sans MS, Trebuchet MS, sans-serif;
   background: linear-gradient(135deg,#bae1ff,#baffc9);
   margin:0;
+  color:#4b2e83;
 }
 
 .screen { display:none; }
@@ -23,152 +25,420 @@ body {
   font-weight:bold;
   cursor:pointer;
   border:none;
+  box-shadow:0 2px 6px rgba(0,0,0,0.12);
+}
+
+.btn:hover {
+  background:#fff8d9;
 }
 
 .word {
-  padding:10px;
-  margin:5px;
+  padding:10px 14px;
+  margin:6px;
   display:inline-block;
   border-radius:20px;
-  background:#fff;
+  font-weight:bold;
+}
+
+.prefix {
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.root {
+  background:#dcfce7;
+  color:#166534;
+}
+
+.suffix {
+  background:#ffe4e6;
+  color:#be123c;
+}
+
+.card {
+  background:rgba(255,255,255,0.85);
+  border-radius:24px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+.big-btn {
+  background:white;
+  padding:14px 24px;
+  border-radius:22px;
+  font-weight:bold;
+  font-size:20px;
+  border:none;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  margin:8px;
+}
+
+.big-btn:hover {
+  background:#fff8d9;
+}
+
+.input-box {
+  width:100%;
+  padding:12px;
+  border-radius:14px;
+  border:2px solid #ddd;
+  margin-bottom:12px;
+  font-size:16px;
+}
+
+.saved-word {
+  background:white;
+  border-radius:16px;
+  padding:12px;
+  margin-top:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="p-6 bg-pink-200 flex justify-between items-center flex-wrap">
+<div class="p-6 bg-pink-200 flex justify-between items-center flex-wrap shadow-md">
   <div>
     <h1 class="text-4xl font-bold">🦫 Magic Word Parts House 👑</h1>
-    <p>with King George</p>
+    <p class="text-lg">with King George</p>
   </div>
 
   <div>
-    <button onclick="show(0)" class="btn">🏠 Home</button>
-    <button onclick="show(1)" class="btn">📚 Learn</button>
-    <button onclick="show(2)" class="btn">🎲 Mix</button>
-    <button onclick="show(3)" class="btn">🧠 Quiz</button>
-    <button onclick="show(4)" class="btn">🧪 Lab</button>
+    <button class="btn" onclick="showScreen('home')">🏠 Home</button>
+    <button class="btn" onclick="showScreen('learn')">📚 Learn</button>
+    <button class="btn" onclick="showScreen('mix')">🎲 Mix & Match</button>
+    <button class="btn" onclick="showScreen('quiz')">🧠 Quiz</button>
+    <button class="btn" onclick="showScreen('lab')">🧪 Lab</button>
   </div>
 </div>
 
-<!-- HOME -->
-<div id="s0" class="screen active text-center p-10">
-  <h2 class="text-5xl">👑 Hi! I'm King George 🦫</h2>
-  <p class="text-2xl mt-4">Let’s build magic words!</p>
-</div>
+<div class="max-w-6xl mx-auto p-6">
 
-<!-- LEARN -->
-<div id="s1" class="screen p-10">
-  <h2 class="text-4xl mb-4">📚 Learn</h2>
+  <section id="home" class="screen active">
+    <div class="card text-center">
+      <h2 class="text-5xl font-bold mb-4">👑 Hi! I'm King George 🦫</h2>
+      <p class="text-2xl mb-6">Welcome to Magic Word Parts House!</p>
+      <p class="text-xl mb-8">Let’s learn prefixes, roots, suffixes, and make silly words!</p>
 
-  <div class="word">pre- (before)</div>
-  <div class="word">re- (again)</div>
-  <div class="word">bio (life)</div>
-  <div class="word">geo (earth)</div>
-  <div class="word">-ology (study of)</div>
-</div>
+      <button class="big-btn" onclick="showScreen('learn')">📚 Start Learning</button>
+      <button class="big-btn" onclick="showScreen('mix')">🎲 Make a Word</button>
+      <button class="big-btn" onclick="showScreen('quiz')">🧠 Take a Quiz</button>
+    </div>
+  </section>
 
-<!-- MIX -->
-<div id="s2" class="screen p-10 text-center">
-  <h2 class="text-4xl mb-6">🎲 Mix Word</h2>
+  <section id="learn" class="screen">
+    <div class="card">
+      <h2 class="text-4xl font-bold mb-6">📚 Learn Word Parts</h2>
 
-  <select id="p" class="btn">
-    <option>pre-</option>
-    <option>re-</option>
-  </select>
+      <h3 class="text-2xl font-bold mb-2">Prefixes</h3>
+      <div id="prefix-list"></div>
 
-  <select id="r" class="btn">
-    <option>bio</option>
-    <option>geo</option>
-  </select>
+      <h3 class="text-2xl font-bold mt-6 mb-2">Roots</h3>
+      <div id="root-list"></div>
 
-  <select id="suf" class="btn">
-    <option>-ology</option>
-    <option>-er</option>
-  </select>
+      <h3 class="text-2xl font-bold mt-6 mb-2">Suffixes</h3>
+      <div id="suffix-list"></div>
+    </div>
+  </section>
 
-  <br><br>
+  <section id="mix" class="screen">
+    <div class="card text-center">
+      <h2 class="text-4xl font-bold mb-6">🎲 Mix & Match</h2>
 
-  <button onclick="mix()" class="btn">Make Word</button>
+      <div class="grid md:grid-cols-3 gap-4 mb-6">
+        <div>
+          <label class="font-bold text-xl">Prefix</label>
+          <select id="mix-prefix" class="input-box"></select>
+        </div>
+        <div>
+          <label class="font-bold text-xl">Root</label>
+          <select id="mix-root" class="input-box"></select>
+        </div>
+        <div>
+          <label class="font-bold text-xl">Suffix</label>
+          <select id="mix-suffix" class="input-box"></select>
+        </div>
+      </div>
 
-  <p id="mixResult" class="text-2xl mt-4"></p>
-</div>
+      <button class="big-btn" onclick="makeWord()">✨ Make Magic Word</button>
 
-<!-- QUIZ -->
-<div id="s3" class="screen p-10 text-center">
-  <h2 class="text-4xl mb-6">🧠 Quiz</h2>
+      <div id="mix-result" class="mt-8 text-2xl font-bold"></div>
+      <div id="mix-meaning" class="mt-2 text-lg"></div>
+    </div>
+  </section>
 
-  <p id="q">What does "bio" mean?</p>
+  <section id="quiz" class="screen">
+    <div class="card text-center">
+      <h2 class="text-4xl font-bold mb-6">🧠 Quiz Time</h2>
+      <p id="quiz-question" class="text-2xl mb-6"></p>
 
-  <button onclick="answer('life')" class="btn">life</button>
-  <button onclick="answer('earth')" class="btn">earth</button>
+      <div id="quiz-options" class="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto"></div>
 
-  <p id="result" class="mt-4 text-2xl"></p>
-</div>
+      <p id="quiz-feedback" class="mt-6 text-2xl font-bold"></p>
 
-<!-- LAB ✅ -->
-<div id="s4" class="screen p-10">
-  <h2 class="text-4xl mb-4">🧪 Silly Word Lab</h2>
+      <div class="mt-8 flex justify-center gap-6 flex-wrap">
+        <p class="text-xl">Question: <span id="quiz-number">1</span></p>
+        <p class="text-xl">Score: <span id="quiz-score">0</span></p>
+      </div>
 
-  <input id="w" placeholder="Word" class="border p-2 w-full"><br><br>
-  <input id="d" placeholder="Definition" class="border p-2 w-full"><br><br>
-  <input id="sen" placeholder="Sentence" class="border p-2 w-full"><br><br>
+      <button id="next-btn" class="big-btn mt-6 hidden" onclick="nextQuestion()">Next Question</button>
+    </div>
+  </section>
 
-  <button onclick="save()" class="btn">Save</button>
+  <section id="lab" class="screen">
+    <div class="grid lg:grid-cols-2 gap-6">
+      <div class="card">
+        <h2 class="text-4xl font-bold mb-6">🧪 Silly Word Lab</h2>
 
-  <div id="list" class="mt-6"></div>
+        <input id="lab-word" class="input-box" placeholder="Word" />
+        <input id="lab-definition" class="input-box" placeholder="Definition" />
+        <input id="lab-sentence" class="input-box" placeholder="Sentence" />
 
-  <h3 class="text-2xl mt-8">🎯 Challenge</h3>
-  <p>A person who loves tiny animals ______</p>
-  <p>Building across space ______</p>
-  <p>Looks like light ______</p>
+        <button class="big-btn" onclick="saveWord()">Save Word</button>
+
+        <h3 class="text-2xl font-bold mt-8 mb-4">Your Saved Words</h3>
+        <div id="saved-words"></div>
+      </div>
+
+      <div class="card">
+        <h2 class="text-4xl font-bold mb-6">🎯 Challenge</h2>
+        <div class="space-y-4 text-xl">
+          <p>A person who loves tiny animals ______</p>
+          <p>Building across space ______</p>
+          <p>Looks like light ______</p>
+          <p>One who studies animals ______</p>
+          <p>A person who writes by self ______</p>
+          <p>Something full of joy ______</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>
 
 <script>
-function show(n){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'))
-  document.getElementById('s'+n).classList.add('active')
-}
+  const prefixes = [
+    { part: 'pre-', meaning: 'before' },
+    { part: 're-', meaning: 'again' },
+    { part: 'un-', meaning: 'not' },
+    { part: 'bi-', meaning: 'two' },
+    { part: 'micro-', meaning: 'small' },
+    { part: 'tele-', meaning: 'far' },
+    { part: 'trans-', meaning: 'across' },
+    { part: 'auto-', meaning: 'self' }
+  ];
 
-function mix(){
-  let word = document.getElementById("p").value +
-             document.getElementById("r").value +
-             document.getElementById("suf").value.replace("-","")
+  const roots = [
+    { part: 'bio', meaning: 'life' },
+    { part: 'geo', meaning: 'earth' },
+    { part: 'graph', meaning: 'write' },
+    { part: 'phon', meaning: 'sound' },
+    { part: 'photo', meaning: 'light' },
+    { part: 'port', meaning: 'carry' },
+    { part: 'zo', meaning: 'animal' }
+  ];
 
-  document.getElementById("mixResult").innerText = word
-}
+  const suffixes = [
+    { part: '-ology', meaning: 'study of' },
+    { part: '-er', meaning: 'person' },
+    { part: '-ful', meaning: 'full of' },
+    { part: '-less', meaning: 'without' },
+    { part: '-ist', meaning: 'person who studies or does' },
+    { part: '-able', meaning: 'can be' }
+  ];
 
-function answer(a){
-  if(a=="life"){
-    document.getElementById("result").innerText="Correct 🎉"
-  } else {
-    document.getElementById("result").innerText="Try again ❌"
+  const quizData = [
+    {
+      question: 'What does "bio" mean?',
+      options: ['life', 'earth', 'light', 'sound'],
+      answer: 'life'
+    },
+    {
+      question: 'What does "pre-" mean?',
+      options: ['after', 'before', 'not', 'across'],
+      answer: 'before'
+    },
+    {
+      question: 'What does "-ology" mean?',
+      options: ['person', 'sound', 'study of', 'full of'],
+      answer: 'study of'
+    },
+    {
+      question: 'What does "tele-" mean?',
+      options: ['small', 'far', 'again', 'two'],
+      answer: 'far'
+    }
+  ];
+
+  let currentQuizIndex = 0;
+  let quizScore = 0;
+
+  function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(screen => {
+      screen.classList.remove('active');
+    });
+    document.getElementById(screenId).classList.add('active');
+
+    if (screenId === 'quiz') {
+      loadQuiz();
+    }
+    if (screenId === 'lab') {
+      renderSavedWords();
+    }
   }
-}
 
-function save(){
-  let w=document.getElementById("w").value
-  let d=document.getElementById("d").value
-  let s=document.getElementById("sen").value
+  function renderWordParts() {
+    const prefixList = document.getElementById('prefix-list');
+    const rootList = document.getElementById('root-list');
+    const suffixList = document.getElementById('suffix-list');
 
-  if(!w || !d || !s){
-    alert("Fill all!")
-    return
+    prefixList.innerHTML = prefixes
+      .map(item => `<span class="word prefix">${item.part} (${item.meaning})</span>`)
+      .join('');
+
+    rootList.innerHTML = roots
+      .map(item => `<span class="word root">${item.part} (${item.meaning})</span>`)
+      .join('');
+
+    suffixList.innerHTML = suffixes
+      .map(item => `<span class="word suffix">${item.part} (${item.meaning})</span>`)
+      .join('');
   }
 
-  let div=document.createElement("div")
-  div.innerHTML="<b>"+w+"</b>: "+d+"<br>"+s
-  div.className="bg-white p-3 rounded mt-2"
+  function populateMixSelectors() {
+    const prefixSelect = document.getElementById('mix-prefix');
+    const rootSelect = document.getElementById('mix-root');
+    const suffixSelect = document.getElementById('mix-suffix');
 
-  document.getElementById("list").appendChild(div)
+    prefixSelect.innerHTML = prefixes
+      .map(item => `<option value="${item.part}">${item.part} (${item.meaning})</option>`)
+      .join('');
 
-  document.getElementById("w").value=""
-  document.getElementById("d").value=""
-  document.getElementById("sen").value=""
-}
+    rootSelect.innerHTML = roots
+      .map(item => `<option value="${item.part}">${item.part} (${item.meaning})</option>`)
+      .join('');
+
+    suffixSelect.innerHTML = suffixes
+      .map(item => `<option value="${item.part}">${item.part} (${item.meaning})</option>`)
+      .join('');
+  }
+
+  function findMeaning(list, part) {
+    const found = list.find(item => item.part === part);
+    return found ? found.meaning : '';
+  }
+
+  function makeWord() {
+    const prefix = document.getElementById('mix-prefix').value;
+    const root = document.getElementById('mix-root').value;
+    const suffix = document.getElementById('mix-suffix').value;
+
+    const word = (prefix + root + suffix.replace('-', '')).toLowerCase();
+
+    document.getElementById('mix-result').innerText = `Your word: ${word}`;
+    document.getElementById('mix-meaning').innerText =
+      `${prefix} = ${findMeaning(prefixes, prefix)}, ${root} = ${findMeaning(roots, root)}, ${suffix} = ${findMeaning(suffixes, suffix)}`;
+  }
+
+  function loadQuiz() {
+    if (currentQuizIndex >= quizData.length) {
+      document.getElementById('quiz-question').innerText = '🎉 You finished the quiz!';
+      document.getElementById('quiz-options').innerHTML = '';
+      document.getElementById('quiz-feedback').innerText = `Final Score: ${quizScore}`;
+      document.getElementById('next-btn').classList.add('hidden');
+      document.getElementById('quiz-number').innerText = quizData.length;
+      document.getElementById('quiz-score').innerText = quizScore;
+      return;
+    }
+
+    const current = quizData[currentQuizIndex];
+    document.getElementById('quiz-question').innerText = current.question;
+    document.getElementById('quiz-feedback').innerText = '';
+    document.getElementById('next-btn').classList.add('hidden');
+    document.getElementById('quiz-number').innerText = currentQuizIndex + 1;
+    document.getElementById('quiz-score').innerText = quizScore;
+
+    const optionsHtml = current.options.map(option => {
+      const safeOption = option.replace(/'/g, "\'");
+      return `<button class="big-btn" onclick="checkAnswer('${safeOption}')">${option}</button>`;
+    }).join('');
+
+    document.getElementById('quiz-options').innerHTML = optionsHtml;
+  }
+
+  function checkAnswer(selected) {
+    const current = quizData[currentQuizIndex];
+    const feedback = document.getElementById('quiz-feedback');
+
+    if (selected === current.answer) {
+      feedback.innerText = 'Correct 🎉';
+      feedback.style.color = 'green';
+      quizScore += 1;
+    } else {
+      feedback.innerText = `Try again ❌ Correct answer: ${current.answer}`;
+      feedback.style.color = 'crimson';
+    }
+
+    document.getElementById('quiz-score').innerText = quizScore;
+    document.getElementById('next-btn').classList.remove('hidden');
+
+    const allButtons = document.querySelectorAll('#quiz-options button');
+    allButtons.forEach(btn => btn.disabled = true);
+  }
+
+  function nextQuestion() {
+    currentQuizIndex += 1;
+    loadQuiz();
+  }
+
+  function getSavedWords() {
+    return JSON.parse(localStorage.getItem('magicWordLab') || '[]');
+  }
+
+  function saveWord() {
+    const word = document.getElementById('lab-word').value.trim();
+    const definition = document.getElementById('lab-definition').value.trim();
+    const sentence = document.getElementById('lab-sentence').value.trim();
+
+    if (!word || !definition || !sentence) {
+      alert('Please fill everything!');
+      return;
+    }
+
+    const savedWords = getSavedWords();
+    savedWords.push({ word, definition, sentence });
+    localStorage.setItem('magicWordLab', JSON.stringify(savedWords));
+
+    document.getElementById('lab-word').value = '';
+    document.getElementById('lab-definition').value = '';
+    document.getElementById('lab-sentence').value = '';
+
+    renderSavedWords();
+  }
+
+  function renderSavedWords() {
+    const savedWords = getSavedWords();
+    const container = document.getElementById('saved-words');
+
+    if (!savedWords.length) {
+      container.innerHTML = '<p>No saved words yet.</p>';
+      return;
+    }
+
+    container.innerHTML = savedWords.map(item => `
+      <div class="saved-word">
+        <div><strong>Word:</strong> ${item.word}</div>
+        <div><strong>Definition:</strong> ${item.definition}</div>
+        <div><strong>Sentence:</strong> ${item.sentence}</div>
+      </div>
+    `).join('');
+  }
+
+  renderWordParts();
+  populateMixSelectors();
+  renderSavedWords();
 </script>
-
 </body>
 </html>
