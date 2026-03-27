@@ -126,7 +126,6 @@
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                <!-- Prefixes -->
                 <div>
                     <div class="flex items-center gap-4 mb-8">
                         <div class="w-12 h-12 bg-[#BAE1FF] rounded-full flex items-center justify-center text-4xl">🔵</div>
@@ -135,7 +134,6 @@
                     <div id="prefix-list" class="flex flex-wrap"></div>
                 </div>
                 
-                <!-- Roots -->
                 <div>
                     <div class="flex items-center gap-4 mb-8">
                         <div class="w-12 h-12 bg-[#BAFFC9] rounded-full flex items-center justify-center text-4xl">🟢</div>
@@ -144,7 +142,6 @@
                     <div id="root-list" class="flex flex-wrap"></div>
                 </div>
                 
-                <!-- Suffixes -->
                 <div>
                     <div class="flex items-center gap-4 mb-8">
                         <div class="w-12 h-12 bg-[#FFB3BA] rounded-full flex items-center justify-center text-4xl">🔴</div>
@@ -205,7 +202,7 @@
     </div>
 
     <script>
-        // 完整数据（来自你最初的图片 + 大量适合六年级的例词）
+        // 完整数据
         const prefixes = [
             {part: "anti-", meaning: "against", examples: ["antibiotic", "antidote", "antifreeze", "antisocial", "antiperspirant", "antonym", "antithesis", "antacid"]},
             {part: "auto-", meaning: "self", examples: ["autograph", "automatic", "autopilot", "autobiography", "automobile", "autonomous"]},
@@ -358,9 +355,9 @@
         }
 
         function mixAndMatch() {
-            const pre = document.getElementById('select-prefix').value;
-            const root = document.getElementById('select-root').value;
-            const suf = document.getElementById('select-suffix').value;
+            const pre = document.getElementById('select-prefix').value || "pre-";
+            const root = document.getElementById('select-root').value || "bio";
+            const suf = document.getElementById('select-suffix').value || "-ology";
             const word = (pre + root + suf.replace('-','')).toLowerCase();
             document.getElementById('mix-word').textContent = word;
             document.getElementById('mix-result').classList.remove('hidden');
@@ -432,9 +429,16 @@
         }
 
         function navigate(screen) {
-            document.querySelectorAll('#screen-0, #screen-1, #screen-2, #screen-3').forEach(s => s.classList.add('hidden'));
+            // 隐藏所有页面
+            document.getElementById('screen-0').classList.add('hidden');
+            document.getElementById('screen-1').classList.add('hidden');
+            document.getElementById('screen-2').classList.add('hidden');
+            document.getElementById('screen-3').classList.add('hidden');
+            
+            // 显示选中的页面
             document.getElementById('screen-' + screen).classList.remove('hidden');
             
+            // 加载对应页面的内容
             if (screen === 1) loadLearnPage();
             if (screen === 2) loadMixSelects();
             if (screen === 3) startQuiz();
@@ -451,7 +455,7 @@
 
         window.onload = () => {
             loadStars();
-            navigate(0);  // 默认显示 Home
+            navigate(0);  // 默认显示 Home 页面
         };
     </script>
 </body>
