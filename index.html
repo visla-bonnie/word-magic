@@ -3,628 +3,450 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🍭 Magic Word Parts House 🍭</title>
+  <title>Magic Word Parts House</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
-
-    :root {
-      --purple: #5d2e8c;
-      --blue-bg: #bae1ff;
-      --blue-text: #1e40af;
-      --green-bg: #baffc9;
-      --green-text: #166534;
-      --pink-bg: #ffb3ba;
-      --pink-text: #9f1239;
-      --lavender: #e0bbff;
-      --cream: #ffffba;
-    }
-
-    * { box-sizing: border-box; }
-
     body {
+      font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
+      background: linear-gradient(135deg, #bae1ff, #baffc9);
       margin: 0;
-      font-family: 'Comic Neue', cursive;
-      background: linear-gradient(135deg, #bae1ff 0%, #baffc9 100%);
-      min-height: 100vh;
-      color: var(--purple);
+      color: #4b2e83;
     }
 
-    .header {
-      background: linear-gradient(90deg, var(--pink-bg), var(--cream));
+    .screen {
+      display: none;
     }
 
-    .king-george {
-      animation: floatAndSpin 4s ease-in-out infinite;
-    }
-
-    @keyframes floatAndSpin {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-12px) rotate(6deg); }
+    .screen.active {
+      display: block;
     }
 
     .nav-btn {
-      transition: all 0.25s ease;
-      color: #222;
+      background: white;
+      padding: 10px 18px;
+      border-radius: 20px;
+      margin: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
     }
 
     .nav-btn:hover {
-      transform: translateY(-1px);
-      background: #f7f7f7;
+      background: #fff8d9;
     }
 
-    .nav-btn.active {
-      background: white;
-      color: var(--purple);
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    }
-
-    .word-part {
-      padding: 16px 20px;
-      margin: 8px;
-      border-radius: 9999px;
-      font-size: 1.06rem;
-      font-weight: 700;
-      box-shadow: 6px 6px 0 var(--lavender);
-      cursor: pointer;
-      position: relative;
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      line-height: 1.2;
-    }
-
-    .word-part:hover {
-      transform: scale(1.05) rotate(2deg);
-      box-shadow: 10px 10px 0 var(--pink-bg);
-      z-index: 5;
-    }
-
-    .word-blue {
-      background: var(--blue-bg);
-      color: var(--blue-text);
-    }
-
-    .word-green {
-      background: var(--green-bg);
-      color: var(--green-text);
-    }
-
-    .word-pink {
-      background: var(--pink-bg);
-      color: var(--pink-text);
-    }
-
-    .part-meaning {
-      font-size: 0.82rem;
-      opacity: 0.78;
-      font-weight: 700;
-    }
-
-    .tooltip {
-      position: absolute;
-      bottom: 130%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--purple);
-      color: white;
-      padding: 16px 18px;
+    .word-chip {
+      padding: 10px 14px;
+      margin: 6px;
+      display: inline-block;
       border-radius: 20px;
-      font-size: 0.96rem;
-      line-height: 1.45;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.25s ease;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.22);
-      z-index: 30;
-      min-width: 250px;
-      max-width: 320px;
-      text-align: left;
-      white-space: normal;
+      font-weight: bold;
     }
 
-    .word-part:hover .tooltip {
-      opacity: 1;
-      transform: translateX(-50%) translateY(-10px);
+    .prefix {
+      background: #dbeafe;
+      color: #1d4ed8;
     }
 
-    .bounce-btn {
-      animation: bounce 0.8s infinite alternate;
+    .root {
+      background: #dcfce7;
+      color: #166534;
     }
 
-    @keyframes bounce {
-      from { transform: translateY(0); }
-      to { transform: translateY(-8px); }
+    .suffix {
+      background: #ffe4e6;
+      color: #be123c;
     }
 
-    .screen-hidden {
-      display: none !important;
-    }
-
-    .section-card {
-      background: rgba(255,255,255,0.26);
-      border: 2px solid rgba(255,255,255,0.35);
-      border-radius: 28px;
-      padding: 24px;
-      min-height: 360px;
-      backdrop-filter: blur(2px);
-    }
-
-    .answer-btn {
-      background: white;
+    .card {
+      background: rgba(255,255,255,0.85);
       border-radius: 24px;
-      padding: 22px 16px;
-      font-size: 1.4rem;
-      font-weight: 700;
-      transition: all 0.2s ease;
-      border: 3px solid transparent;
+      padding: 24px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
     }
 
-    .answer-btn:hover {
-      background: #f3fff6;
-      border-color: #a7f3d0;
-      transform: translateY(-2px);
+    .big-btn {
+      background: white;
+      padding: 14px 24px;
+      border-radius: 22px;
+      font-weight: bold;
+      font-size: 20px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin: 8px;
     }
 
-    @media (max-width: 900px) {
-      .header {
-        padding: 16px;
-        flex-direction: column;
-        gap: 14px;
-      }
-
-      .header h1 {
-        font-size: 2rem !important;
-      }
-
-      .header p {
-        font-size: 1.05rem !important;
-      }
+    .big-btn:hover {
+      background: #fff8d9;
     }
 
-    @media (max-width: 640px) {
-      .word-part {
-        font-size: 0.98rem;
-        padding: 14px 16px;
-      }
+    .input-box {
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
+      border: 2px solid #ddd;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
 
-      .tooltip {
-        min-width: 220px;
-        max-width: 260px;
-      }
+    .saved-word {
+      background: white;
+      border-radius: 16px;
+      padding: 12px;
+      margin-top: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
   </style>
 </head>
 <body>
-  <div class="header sticky top-0 z-50 px-8 py-5 flex items-center justify-between shadow-2xl">
-    <div class="flex items-center gap-5">
-      <div class="king-george text-6xl">🦫👑</div>
-      <div>
-        <h1 class="text-4xl font-bold text-[var(--purple)]">Magic Word Parts House</h1>
-        <p class="text-[var(--purple)]/80 text-xl">with King George the Beaver 🦫👑</p>
-      </div>
+
+  <!-- Header -->
+  <div class="p-6 bg-pink-200 flex justify-between items-center flex-wrap shadow-md">
+    <div>
+      <h1 class="text-4xl font-bold">🦫 Magic Word Parts House 👑</h1>
+      <p class="text-lg">with King George</p>
     </div>
 
-    <div class="flex items-center gap-6 flex-wrap justify-center">
-      <button onclick="showRewards()" class="flex items-center bg-white rounded-full px-7 py-3 cursor-pointer hover:scale-105 transition shadow">
-        <span class="text-4xl">⭐</span>
-        <span id="star-count" class="font-bold text-3xl ml-3" style="color:#f2a6b3">0</span>
-      </button>
-
-      <div class="flex bg-white/90 rounded-full p-1 shadow-inner flex-wrap justify-center">
-        <button onclick="navigate(0)" id="nav-0" class="nav-btn px-6 py-3 rounded-full font-bold text-lg active">🏠 Home</button>
-        <button onclick="navigate(1)" id="nav-1" class="nav-btn px-6 py-3 rounded-full font-bold text-lg">📚 Learn</button>
-        <button onclick="navigate(2)" id="nav-2" class="nav-btn px-6 py-3 rounded-full font-bold text-lg">🎲 Mix & Match</button>
-        <button onclick="navigate(3)" id="nav-3" class="nav-btn px-6 py-3 rounded-full font-bold text-lg">🧠 Quiz</button>
-      </div>
+    <div>
+      <button class="nav-btn" onclick="showScreen('home')">🏠 Home</button>
+      <button class="nav-btn" onclick="showScreen('learn')">📚 Learn</button>
+      <button class="nav-btn" onclick="showScreen('mix')">🎲 Mix & Match</button>
+      <button class="nav-btn" onclick="showScreen('quiz')">🧠 Quiz</button>
+      <button class="nav-btn" onclick="showScreen('lab')">🧪 Lab</button>
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-6 md:px-8 pt-12 pb-16">
+  <div class="max-w-6xl mx-auto p-6">
+
     <!-- Home -->
-    <section id="screen-0">
-      <div class="text-center py-14 md:py-20">
-        <div class="king-george text-8xl md:text-9xl mb-8">🦫👑🍭</div>
-        <h2 class="text-4xl md:text-6xl font-bold mb-4 text-[var(--purple)]">Welcome to Magic Word Parts House!</h2>
-        <p class="text-2xl md:text-3xl text-[var(--purple)]/75">Learn with King George the Beaver 🦫</p>
-        <div class="mt-12 flex flex-wrap justify-center gap-4">
-          <button onclick="navigate(1)" class="bg-white text-[var(--purple)] font-bold text-2xl px-8 py-4 rounded-3xl shadow hover:scale-105 transition">📚 Start Learning</button>
-          <button onclick="navigate(2)" class="bg-white text-[var(--purple)] font-bold text-2xl px-8 py-4 rounded-3xl shadow hover:scale-105 transition">🎲 Make a Magic Word</button>
-          <button onclick="navigate(3)" class="bg-white text-[var(--purple)] font-bold text-2xl px-8 py-4 rounded-3xl shadow hover:scale-105 transition">🧠 Take a Quiz</button>
-        </div>
+    <section id="home" class="screen active">
+      <div class="card text-center">
+        <h2 class="text-5xl font-bold mb-4">👑 Hi! I'm King George 🦫</h2>
+        <p class="text-2xl mb-6">Welcome to Magic Word Parts House!</p>
+        <p class="text-xl mb-8">Let’s learn prefixes, roots, suffixes, and make silly words!</p>
+
+        <button class="big-btn" onclick="showScreen('learn')">📚 Start Learning</button>
+        <button class="big-btn" onclick="showScreen('mix')">🎲 Make a Word</button>
+        <button class="big-btn" onclick="showScreen('quiz')">🧠 Take a Quiz</button>
       </div>
     </section>
 
     <!-- Learn -->
-    <section id="screen-1" class="screen-hidden">
-      <div class="flex justify-center items-center gap-4 md:gap-6 mb-12 flex-wrap text-center">
-        <h2 class="text-4xl md:text-5xl font-bold text-[var(--purple)]">Colorful Word Parts with King George</h2>
-        <div class="king-george text-6xl md:text-7xl">🦫👑</div>
-      </div>
+    <section id="learn" class="screen">
+      <div class="card">
+        <h2 class="text-4xl font-bold mb-6">📚 Learn Word Parts</h2>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="section-card">
-          <div class="flex items-center gap-4 mb-6">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center text-4xl" style="background:var(--blue-bg)">🔵</div>
-            <h3 class="text-3xl md:text-4xl font-bold text-[var(--purple)]">Prefixes</h3>
-          </div>
-          <div id="prefix-list" class="flex flex-wrap"></div>
-        </div>
+        <h3 class="text-2xl font-bold mb-2">Prefixes</h3>
+        <div id="prefix-list"></div>
 
-        <div class="section-card">
-          <div class="flex items-center gap-4 mb-6">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center text-4xl" style="background:var(--green-bg)">🟢</div>
-            <h3 class="text-3xl md:text-4xl font-bold text-[var(--purple)]">Roots</h3>
-          </div>
-          <div id="root-list" class="flex flex-wrap"></div>
-        </div>
+        <h3 class="text-2xl font-bold mt-6 mb-2">Roots</h3>
+        <div id="root-list"></div>
 
-        <div class="section-card">
-          <div class="flex items-center gap-4 mb-6">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center text-4xl" style="background:var(--pink-bg)">🔴</div>
-            <h3 class="text-3xl md:text-4xl font-bold text-[var(--purple)]">Suffixes</h3>
-          </div>
-          <div id="suffix-list" class="flex flex-wrap"></div>
-        </div>
+        <h3 class="text-2xl font-bold mt-6 mb-2">Suffixes</h3>
+        <div id="suffix-list"></div>
       </div>
     </section>
 
-    <!-- Mix & Match -->
-    <section id="screen-2" class="screen-hidden">
-      <h2 class="text-4xl md:text-5xl font-bold text-center mb-10 text-[var(--purple)]">🎲 Mix & Match Magic</h2>
-      <div class="bg-white/80 rounded-3xl p-6 md:p-12 max-w-4xl mx-auto shadow-lg">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Mix -->
+    <section id="mix" class="screen">
+      <div class="card text-center">
+        <h2 class="text-4xl font-bold mb-6">🎲 Mix & Match</h2>
+
+        <div class="grid md:grid-cols-3 gap-4 mb-6">
           <div>
-            <p class="text-center font-bold text-2xl mb-4" style="color:var(--blue-text)">🔵 Prefix</p>
-            <select id="select-prefix" class="w-full h-16 text-xl rounded-3xl border-4 bg-white text-center" style="border-color:var(--blue-bg)"></select>
+            <label class="font-bold text-xl">Prefix</label>
+            <select id="mix-prefix" class="input-box"></select>
           </div>
           <div>
-            <p class="text-center font-bold text-2xl mb-4" style="color:var(--green-text)">🟢 Root</p>
-            <select id="select-root" class="w-full h-16 text-xl rounded-3xl border-4 bg-white text-center" style="border-color:var(--green-bg)"></select>
+            <label class="font-bold text-xl">Root</label>
+            <select id="mix-root" class="input-box"></select>
           </div>
           <div>
-            <p class="text-center font-bold text-2xl mb-4" style="color:var(--pink-text)">🔴 Suffix</p>
-            <select id="select-suffix" class="w-full h-16 text-xl rounded-3xl border-4 bg-white text-center" style="border-color:var(--pink-bg)"></select>
+            <label class="font-bold text-xl">Suffix</label>
+            <select id="mix-suffix" class="input-box"></select>
           </div>
         </div>
 
-        <div class="text-center mt-12">
-          <button onclick="mixAndMatch()" class="bounce-btn bg-gradient-to-r from-[#FFB3BA] to-[#BAFFC9] text-[var(--purple)] text-2xl md:text-3xl font-bold px-10 md:px-16 py-5 md:py-6 rounded-3xl shadow">
-            ✨ Make Magic Word! ✨
-          </button>
-        </div>
+        <button class="big-btn" onclick="makeWord()">✨ Make Magic Word</button>
 
-        <div id="mix-result" class="screen-hidden mt-12 bg-gradient-to-br from-[#E0BBFF] to-white rounded-3xl p-8 md:p-10 text-center shadow">
-          <div id="mix-word" class="text-4xl md:text-6xl font-bold text-[var(--purple)] mb-4 break-words"></div>
-          <p id="mix-meaning" class="text-xl md:text-2xl text-[var(--purple)]/90"></p>
-          <button onclick="hideMixResult()" class="mt-8 px-10 py-4 bg-white rounded-3xl text-xl font-bold shadow hover:scale-105 transition">Try Again</button>
-        </div>
+        <div id="mix-result" class="mt-8 text-2xl font-bold"></div>
+        <div id="mix-meaning" class="mt-2 text-lg"></div>
       </div>
     </section>
 
     <!-- Quiz -->
-    <section id="screen-3" class="screen-hidden">
-      <h2 class="text-4xl md:text-5xl font-bold text-center mb-10 text-[var(--purple)]">🧠 Magic Quiz</h2>
-      <div class="max-w-3xl mx-auto bg-white/80 rounded-3xl p-6 md:p-12 shadow-lg">
-        <div id="quiz-container">
-          <div id="question-text" class="text-2xl md:text-3xl font-bold text-center mb-10"></div>
-          <div id="options" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    <section id="quiz" class="screen">
+      <div class="card text-center">
+        <h2 class="text-4xl font-bold mb-6">🧠 Quiz Time</h2>
+        <p id="quiz-question" class="text-2xl mb-6"></p>
+
+        <div id="quiz-options" class="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto"></div>
+
+        <p id="quiz-feedback" class="mt-6 text-2xl font-bold"></p>
+
+        <div class="mt-8 flex justify-center gap-6 flex-wrap">
+          <p class="text-xl">Question: <span id="quiz-number">1</span></p>
+          <p class="text-xl">Score: <span id="quiz-score">0</span></p>
         </div>
 
-        <div id="feedback" class="screen-hidden text-center mt-10">
-          <div id="feedback-text" class="text-3xl md:text-4xl mb-8"></div>
-          <button onclick="nextQuestion()" class="px-10 py-5 bg-[#BAFFC9] rounded-3xl text-2xl font-bold shadow hover:scale-105 transition">Next Question →</button>
+        <button id="next-btn" class="big-btn mt-6 hidden" onclick="nextQuestion()">Next Question</button>
+      </div>
+    </section>
+
+    <!-- Lab -->
+    <section id="lab" class="screen">
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="card">
+          <h2 class="text-4xl font-bold mb-6">🧪 Silly Word Lab</h2>
+
+          <input id="lab-word" class="input-box" placeholder="Word" />
+          <input id="lab-definition" class="input-box" placeholder="Definition" />
+          <input id="lab-sentence" class="input-box" placeholder="Sentence" />
+
+          <button class="big-btn" onclick="saveWord()">Save Word</button>
+
+          <h3 class="text-2xl font-bold mt-8 mb-4">Your Saved Words</h3>
+          <div id="saved-words"></div>
         </div>
 
-        <div class="flex justify-between mt-12 text-lg md:text-xl gap-4 flex-wrap">
-          <p>Question <span id="quiz-num">1</span>/<span id="quiz-total">6</span></p>
-          <p>Score: <span id="quiz-score" style="color:#f2a6b3;font-weight:700">0</span> ⭐</p>
+        <div class="card">
+          <h2 class="text-4xl font-bold mb-6">🎯 Challenge</h2>
+          <div class="space-y-4 text-xl">
+            <p>A person who loves tiny animals ______</p>
+            <p>Building across space ______</p>
+            <p>Looks like light ______</p>
+            <p>One who studies animals ______</p>
+            <p>A person who writes by self ______</p>
+            <p>Something full of joy ______</p>
+          </div>
         </div>
       </div>
     </section>
+
   </div>
 
   <script>
     const prefixes = [
-      {part: 'anti-', meaning: 'against', examples: ['antibiotic', 'antidote', 'antifreeze', 'antisocial', 'antiperspirant', 'antonym', 'antithesis', 'antacid']},
-      {part: 'auto-', meaning: 'self', examples: ['autograph', 'automatic', 'autopilot', 'autobiography', 'automobile', 'autonomous']},
-      {part: 'bi-', meaning: 'two', examples: ['bicycle', 'bilingual', 'binoculars', 'bisect', 'bipartisan']},
-      {part: 'circum-', meaning: 'around', examples: ['circumference', 'circumnavigate', 'circumspect']},
-      {part: 'co-', meaning: 'together', examples: ['cooperate', 'coauthor', 'coexist', 'coordinate']},
-      {part: 'de-', meaning: 'down, away', examples: ['descend', 'depart', 'destroy', 'dehydrate', 'deflate']},
-      {part: 'dis-', meaning: 'not, apart', examples: ['disappear', 'dislike', 'disconnect', 'disagree', 'discover']},
-      {part: 'ex-', meaning: 'out of', examples: ['exit', 'export', 'explode', 'extract', 'exhale']},
-      {part: 'extra-', meaning: 'beyond', examples: ['extraordinary', 'extraterrestrial', 'extracurricular']},
-      {part: 'hyper-', meaning: 'over, excessive', examples: ['hyperactive', 'hypersensitive', 'hyperbole']},
-      {part: 'hypo-', meaning: 'under', examples: ['hypoallergenic', 'hypodermic', 'hypothesis']},
-      {part: 'in-', meaning: 'not, in', examples: ['invisible', 'incorrect', 'inside', 'incomplete', 'independent']},
-      {part: 'inter-', meaning: 'between', examples: ['international', 'interact', 'interrupt', 'interfere']},
-      {part: 'intra-', meaning: 'within', examples: ['intravenous', 'intramural']},
-      {part: 'macro-', meaning: 'large', examples: ['macroeconomics', 'macroscopic']},
-      {part: 'micro-', meaning: 'small', examples: ['microscope', 'microbiology', 'microphone', 'microchip']},
-      {part: 'mono-', meaning: 'one', examples: ['monologue', 'monotone', 'monopoly']},
-      {part: 'multi-', meaning: 'many', examples: ['multicolor', 'multimedia', 'multitask', 'multinational']},
-      {part: 'neo-', meaning: 'new', examples: ['neonatal', 'neoclassical']},
-      {part: 'non-', meaning: 'not', examples: ['nonstop', 'nonfiction', 'nonsense']},
-      {part: 'omni-', meaning: 'all', examples: ['omnivore', 'omnipotent', 'omniscient']},
-      {part: 'pan-', meaning: 'all', examples: ['panorama', 'pandemic', 'panther']},
-      {part: 'peri-', meaning: 'around', examples: ['perimeter', 'periscope']},
-      {part: 'poly-', meaning: 'many', examples: ['polygon', 'polyglot', 'polysyllabic']},
-      {part: 'post-', meaning: 'after', examples: ['postpone', 'postscript', 'postwar']},
-      {part: 'pre-', meaning: 'before', examples: ['preview', 'predict', 'preheat', 'prehistoric', 'prepare']},
-      {part: 're-', meaning: 'again', examples: ['redo', 'rewrite', 'replay', 'review', 'rebuild', 'return']},
-      {part: 'sub-', meaning: 'under', examples: ['submarine', 'subtitle', 'subway', 'submerge', 'subzero']},
-      {part: 'super-', meaning: 'above', examples: ['superhero', 'supermarket', 'supersonic', 'superior']},
-      {part: 'trans-', meaning: 'across', examples: ['transport', 'translate', 'transatlantic', 'transplant']}
+      { part: "pre-", meaning: "before" },
+      { part: "re-", meaning: "again" },
+      { part: "un-", meaning: "not" },
+      { part: "bi-", meaning: "two" },
+      { part: "micro-", meaning: "small" },
+      { part: "tele-", meaning: "far" },
+      { part: "trans-", meaning: "across" },
+      { part: "auto-", meaning: "self" }
     ];
 
     const roots = [
-      {part: 'bio', meaning: 'life', examples: ['biology', 'biography', 'biologist', 'antibiotic', 'biosphere', 'biodegradable']},
-      {part: 'chron', meaning: 'time', examples: ['chronology', 'chronicle', 'synchronize', 'anachronism']},
-      {part: 'dict', meaning: 'say', examples: ['predict', 'dictionary', 'contradict', 'verdict', 'diction']},
-      {part: 'form', meaning: 'shape', examples: ['transform', 'uniform', 'reform', 'deform', 'format']},
-      {part: 'geo', meaning: 'earth', examples: ['geography', 'geology', 'geometry', 'geothermal']},
-      {part: 'graph', meaning: 'write', examples: ['autograph', 'photograph', 'biography', 'telegraph', 'bibliography', 'calligraphy']},
-      {part: 'hydr', meaning: 'water', examples: ['hydrate', 'hydroplane', 'dehydrate', 'hydraulic', 'hydroelectric']},
-      {part: 'ject', meaning: 'throw', examples: ['project', 'reject', 'eject', 'inject', 'subject']},
-      {part: 'logy', meaning: 'study', examples: ['biology', 'psychology', 'zoology', 'geology', 'anthropology']},
-      {part: 'lumin', meaning: 'light', examples: ['illuminate', 'luminous', 'luminary']},
-      {part: 'magn', meaning: 'big', examples: ['magnificent', 'magnify', 'magnitude']},
-      {part: 'meter', meaning: 'measure', examples: ['thermometer', 'diameter', 'speedometer', 'barometer']},
-      {part: 'morph', meaning: 'shape', examples: ['metamorphosis', 'amorphous', 'morphology']},
-      {part: 'path', meaning: 'feeling', examples: ['sympathy', 'empathy', 'apathetic', 'pathology']},
-      {part: 'phon', meaning: 'sound', examples: ['telephone', 'symphony', 'microphone', 'phonics']},
-      {part: 'photo', meaning: 'light', examples: ['photograph', 'photosynthesis', 'photocopy', 'photogenic']},
-      {part: 'port', meaning: 'carry', examples: ['transport', 'export', 'import', 'portable', 'reporter']},
-      {part: 'scope', meaning: 'see', examples: ['telescope', 'microscope', 'kaleidoscope', 'periscope', 'stethoscope']},
-      {part: 'scrib/script', meaning: 'write', examples: ['describe', 'manuscript', 'prescribe', 'subscribe', 'scribble']},
-      {part: 'spect', meaning: 'look', examples: ['inspect', 'spectator', 'perspective', 'introspect', 'spectacle']},
-      {part: 'struct', meaning: 'build', examples: ['construct', 'structure', 'destroy', 'instruct', 'reconstruct']},
-      {part: 'tele', meaning: 'far', examples: ['television', 'telephone', 'telescope', 'telepathic', 'telegram']},
-      {part: 'therm', meaning: 'heat', examples: ['thermometer', 'thermal', 'thermostat', 'thermos']},
-      {part: 'tract', meaning: 'pull', examples: ['tractor', 'attract', 'contract', 'extract', 'subtract']},
-      {part: 'vac', meaning: 'empty', examples: ['vacuum', 'vacant', 'evacuate', 'vacation']},
-      {part: 'vent', meaning: 'come', examples: ['prevent', 'adventure', 'invent', 'event']},
-      {part: 'vid/vis', meaning: 'see', examples: ['video', 'vision', 'visible', 'television', 'visual']},
-      {part: 'voc', meaning: 'voice', examples: ['vocal', 'vocabulary', 'advocate', 'invoke']},
-      {part: 'zo', meaning: 'animal', examples: ['zoo', 'zoology', 'zodiac']},
-      {part: 'ped', meaning: 'foot', examples: ['pedal', 'pedestrian', 'centipede', 'pedicure']}
+      { part: "bio", meaning: "life" },
+      { part: "geo", meaning: "earth" },
+      { part: "graph", meaning: "write" },
+      { part: "phon", meaning: "sound" },
+      { part: "photo", meaning: "light" },
+      { part: "port", meaning: "carry" },
+      { part: "zo", meaning: "animal" }
     ];
 
     const suffixes = [
-      {part: '-able', meaning: 'can be', examples: ['readable', 'lovable', 'breakable', 'comfortable', 'believable', 'reliable']},
-      {part: '-acy', meaning: 'state', examples: ['democracy', 'accuracy', 'privacy']},
-      {part: '-al', meaning: 'related to', examples: ['personal', 'natural', 'musical', 'emotional']},
-      {part: '-ance', meaning: 'quality', examples: ['importance', 'performance', 'distance']},
-      {part: '-ant', meaning: 'one who', examples: ['assistant', 'participant', 'immigrant']},
-      {part: '-arium', meaning: 'place for', examples: ['aquarium', 'planetarium', 'terrarium']},
-      {part: '-ation', meaning: 'process', examples: ['information', 'celebration', 'imagination', 'education']},
-      {part: '-dom', meaning: 'state of being', examples: ['freedom', 'kingdom', 'boredom']},
-      {part: '-er', meaning: 'one who', examples: ['teacher', 'writer', 'runner', 'singer']},
-      {part: '-esque', meaning: 'like', examples: ['picturesque', 'statuesque']},
-      {part: '-ful', meaning: 'full of', examples: ['beautiful', 'colorful', 'helpful', 'powerful', 'careful', 'joyful']},
-      {part: '-hood', meaning: 'state', examples: ['childhood', 'neighborhood', 'motherhood']},
-      {part: '-ible', meaning: 'capable of', examples: ['visible', 'flexible', 'responsible', 'possible']},
-      {part: '-ify', meaning: 'make', examples: ['simplify', 'beautify', 'clarify', 'purify']},
-      {part: '-ion', meaning: 'act', examples: ['action', 'decision', 'creation', 'education']},
-      {part: '-ish', meaning: 'like', examples: ['childish', 'selfish', 'foolish']},
-      {part: '-ism', meaning: 'belief', examples: ['optimism', 'patriotism', 'realism']},
-      {part: '-ist', meaning: 'person', examples: ['artist', 'scientist', 'dentist', 'biologist', 'pianist']},
-      {part: '-ity', meaning: 'state', examples: ['activity', 'creativity', 'reality', 'equality']},
-      {part: '-less', meaning: 'without', examples: ['fearless', 'hopeless', 'careless', 'endless', 'harmless', 'useless']},
-      {part: '-logist', meaning: 'specialist', examples: ['biologist', 'geologist', 'psychologist', 'cardiologist']},
-      {part: '-ment', meaning: 'result', examples: ['enjoyment', 'development', 'government', 'movement']},
-      {part: '-ness', meaning: 'state', examples: ['happiness', 'kindness', 'darkness', 'sadness']},
-      {part: '-oid', meaning: 'resembling', examples: ['humanoid', 'asteroid']},
-      {part: '-ology', meaning: 'study of', examples: ['biology', 'zoology', 'psychology', 'geology', 'anthropology']},
-      {part: '-ous', meaning: 'full of', examples: ['famous', 'dangerous', 'adventurous', 'curious']},
-      {part: '-phile', meaning: 'lover of', examples: ['bibliophile', 'anglophile']},
-      {part: '-phobia', meaning: 'fear of', examples: ['arachnophobia', 'claustrophobia', 'hydrophobia']},
-      {part: '-y', meaning: 'characterized by', examples: ['cloudy', 'rainy', 'sleepy', 'windy']}
+      { part: "-ology", meaning: "study of" },
+      { part: "-er", meaning: "person" },
+      { part: "-ful", meaning: "full of" },
+      { part: "-less", meaning: "without" },
+      { part: "-ist", meaning: "person who studies or does" },
+      { part: "-able", meaning: "can be" }
     ];
 
-    const colorMap = {
-      prefix: 'word-blue',
-      root: 'word-green',
-      suffix: 'word-pink'
-    };
+    const quizData = [
+      {
+        question: 'What does "bio" mean?',
+        options: ["life", "earth", "light", "sound"],
+        answer: "life"
+      },
+      {
+        question: 'What does "pre-" mean?',
+        options: ["after", "before", "not", "across"],
+        answer: "before"
+      },
+      {
+        question: 'What does "-ology" mean?',
+        options: ["person", "sound", "study of", "full of"],
+        answer: "study of"
+      },
+      {
+        question: 'What does "tele-" mean?',
+        options: ["small", "far", "again", "two"],
+        answer: "far"
+      }
+    ];
 
-    let totalStars = 0;
-    let currentQuiz = [];
-    let currentIndex = 0;
+    let currentQuizIndex = 0;
     let quizScore = 0;
 
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    function createWordPart(item, type) {
-      const div = document.createElement('div');
-      div.className = `word-part ${colorMap[type]}`;
-      const examplesHtml = item.examples.map(ex => `• ${escapeHtml(ex)}`).join('<br>');
-      div.innerHTML = `
-        <span>${escapeHtml(item.part)}</span>
-        <span class="part-meaning">(${escapeHtml(item.meaning)})</span>
-        <div class="tooltip"><strong>Examples:</strong><br>${examplesHtml}</div>
-      `;
-      return div;
-    }
-
-    function renderWordList(containerId, items, type) {
-      const container = document.getElementById(containerId);
-      container.innerHTML = '';
-      items.forEach(item => container.appendChild(createWordPart(item, type)));
-    }
-
-    function loadLearnPage() {
-      renderWordList('prefix-list', prefixes, 'prefix');
-      renderWordList('root-list', roots, 'root');
-      renderWordList('suffix-list', suffixes, 'suffix');
-    }
-
-    function populateSelect(selectId, items) {
-      const select = document.getElementById(selectId);
-      select.innerHTML = '';
-      items.forEach(item => {
-        const option = document.createElement('option');
-        option.value = item.part;
-        option.textContent = `${item.part} (${item.meaning})`;
-        select.appendChild(option);
+    function showScreen(screenId) {
+      document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
       });
+      document.getElementById(screenId).classList.add("active");
+
+      if (screenId === "quiz") {
+        loadQuiz();
+      }
+      if (screenId === "lab") {
+        renderSavedWords();
+      }
     }
 
-    function loadMixSelects() {
-      populateSelect('select-prefix', prefixes);
-      populateSelect('select-root', roots);
-      populateSelect('select-suffix', suffixes);
+    function renderWordParts() {
+      const prefixList = document.getElementById("prefix-list");
+      const rootList = document.getElementById("root-list");
+      const suffixList = document.getElementById("suffix-list");
+
+      prefixList.innerHTML = prefixes
+        .map(item => `<span class="word-chip prefix">${item.part} (${item.meaning})</span>`)
+        .join("");
+
+      rootList.innerHTML = roots
+        .map(item => `<span class="word-chip root">${item.part} (${item.meaning})</span>`)
+        .join("");
+
+      suffixList.innerHTML = suffixes
+        .map(item => `<span class="word-chip suffix">${item.part} (${item.meaning})</span>`)
+        .join("");
+    }
+
+    function populateMixSelectors() {
+      const prefixSelect = document.getElementById("mix-prefix");
+      const rootSelect = document.getElementById("mix-root");
+      const suffixSelect = document.getElementById("mix-suffix");
+
+      prefixSelect.innerHTML = prefixes
+        .map(item => `<option value="${item.part}">${item.part} (${item.meaning})</option>`)
+        .join("");
+
+      rootSelect.innerHTML = roots
+        .map(item => `<option value="${item.part}">${item.part} (${item.meaning})</option>`)
+        .join("");
+
+      suffixSelect.innerHTML = suffixes
+        .map(item => `<option value="${item.part}">${item.part} (${item.meaning})</option>`)
+        .join("");
     }
 
     function findMeaning(list, part) {
       const found = list.find(item => item.part === part);
-      return found ? found.meaning : '';
+      return found ? found.meaning : "";
     }
 
-    function normalizeWord(prefix, root, suffix) {
-      return (prefix + root + suffix.replace(/^-/, '')).replace(/\//g, '').toLowerCase();
+    function makeWord() {
+      const prefix = document.getElementById("mix-prefix").value;
+      const root = document.getElementById("mix-root").value;
+      const suffix = document.getElementById("mix-suffix").value;
+
+      const word = (prefix + root + suffix.replace("-", "")).toLowerCase();
+
+      document.getElementById("mix-result").innerText = `Your word: ${word}`;
+      document.getElementById("mix-meaning").innerText =
+        `${prefix} = ${findMeaning(prefixes, prefix)}, ${root} = ${findMeaning(roots, root)}, ${suffix} = ${findMeaning(suffixes, suffix)}`;
     }
 
-    function mixAndMatch() {
-      const pre = document.getElementById('select-prefix').value || 'pre-';
-      const root = document.getElementById('select-root').value || 'bio';
-      const suf = document.getElementById('select-suffix').value || '-ology';
-
-      const word = normalizeWord(pre, root, suf);
-      const preMeaning = findMeaning(prefixes, pre);
-      const rootMeaning = findMeaning(roots, root);
-      const sufMeaning = findMeaning(suffixes, suf);
-
-      document.getElementById('mix-word').textContent = word;
-      document.getElementById('mix-meaning').textContent = `${pre} = ${preMeaning}, ${root} = ${rootMeaning}, ${suf} = ${sufMeaning}`;
-      document.getElementById('mix-result').classList.remove('screen-hidden');
-    }
-
-    function hideMixResult() {
-      document.getElementById('mix-result').classList.add('screen-hidden');
-    }
-
-    function startQuiz() {
-      currentQuiz = [
-        { q: "What does 'anti-' mean?", a: 'against', options: ['against', 'with', 'after', 'under'] },
-        { q: "What does 'bio' mean?", a: 'life', options: ['life', 'time', 'earth', 'water'] },
-        { q: "What does 'geo' mean?", a: 'earth', options: ['earth', 'light', 'sound', 'heat'] },
-        { q: "What does '-able' mean?", a: 'can be', options: ['can be', 'full of', 'without', 'like'] },
-        { q: "What does 'pre-' mean?", a: 'before', options: ['before', 'after', 'again', 'under'] },
-        { q: "What does '-phobia' mean?", a: 'fear of', options: ['fear of', 'lover of', 'full of', 'like'] }
-      ];
-
-      currentIndex = 0;
-      quizScore = 0;
-      document.getElementById('quiz-score').textContent = quizScore;
-      document.getElementById('quiz-total').textContent = currentQuiz.length;
-      showQuestion();
-    }
-
-    function showQuestion() {
-      const q = currentQuiz[currentIndex];
-      if (!q) return;
-
-      document.getElementById('question-text').textContent = q.q;
-      document.getElementById('quiz-num').textContent = currentIndex + 1;
-
-      const optionsDiv = document.getElementById('options');
-      optionsDiv.innerHTML = '';
-
-      q.options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'answer-btn';
-        btn.textContent = opt;
-        btn.onclick = () => handleAnswer(opt, q.a);
-        optionsDiv.appendChild(btn);
-      });
-
-      document.getElementById('feedback').classList.add('screen-hidden');
-      document.getElementById('quiz-container').style.display = 'block';
-    }
-
-    function handleAnswer(selected, correct) {
-      document.getElementById('quiz-container').style.display = 'none';
-      const feedback = document.getElementById('feedback');
-      const text = document.getElementById('feedback-text');
-
-      if (selected === correct) {
-        quizScore += 10;
-        totalStars += 10;
-        saveStars();
-        text.innerHTML = '🎉 Correct! +10 stars';
-        text.className = 'text-green-600 text-3xl md:text-4xl';
-      } else {
-        text.innerHTML = `Oops! The correct answer is <strong>${escapeHtml(correct)}</strong>.`;
-        text.className = 'text-red-600 text-3xl md:text-4xl';
+    function loadQuiz() {
+      if (currentQuizIndex >= quizData.length) {
+        document.getElementById("quiz-question").innerText = "🎉 You finished the quiz!";
+        document.getElementById("quiz-options").innerHTML = "";
+        document.getElementById("quiz-feedback").innerText = `Final Score: ${quizScore}`;
+        document.getElementById("next-btn").classList.add("hidden");
+        document.getElementById("quiz-number").innerText = quizData.length;
+        document.getElementById("quiz-score").innerText = quizScore;
+        return;
       }
 
-      document.getElementById('quiz-score').textContent = quizScore;
-      feedback.classList.remove('screen-hidden');
+      const current = quizData[currentQuizIndex];
+      document.getElementById("quiz-question").innerText = current.question;
+      document.getElementById("quiz-feedback").innerText = "";
+      document.getElementById("next-btn").classList.add("hidden");
+      document.getElementById("quiz-number").innerText = currentQuizIndex + 1;
+      document.getElementById("quiz-score").innerText = quizScore;
+
+      const optionsHtml = current.options.map(option => {
+        return `<button class="big-btn" onclick="checkAnswer('${option.replace(/'/g, "\\'")}')">${option}</button>`;
+      }).join("");
+
+      document.getElementById("quiz-options").innerHTML = optionsHtml;
+    }
+
+    function checkAnswer(selected) {
+      const current = quizData[currentQuizIndex];
+      const feedback = document.getElementById("quiz-feedback");
+
+      if (selected === current.answer) {
+        feedback.innerText = "Correct 🎉";
+        feedback.style.color = "green";
+        quizScore += 1;
+      } else {
+        feedback.innerText = `Try again ❌ Correct answer: ${current.answer}`;
+        feedback.style.color = "crimson";
+      }
+
+      document.getElementById("quiz-score").innerText = quizScore;
+      document.getElementById("next-btn").classList.remove("hidden");
+
+      const allButtons = document.querySelectorAll("#quiz-options button");
+      allButtons.forEach(btn => btn.disabled = true);
     }
 
     function nextQuestion() {
-      currentIndex += 1;
-      if (currentIndex >= currentQuiz.length) {
-        alert(`Quiz finished! You scored ${quizScore} stars! Great job!`);
-        navigate(0);
+      currentQuizIndex += 1;
+      loadQuiz();
+    }
+
+    function getSavedWords() {
+      return JSON.parse(localStorage.getItem("magicWordLab") || "[]");
+    }
+
+    function saveWord() {
+      const word = document.getElementById("lab-word").value.trim();
+      const definition = document.getElementById("lab-definition").value.trim();
+      const sentence = document.getElementById("lab-sentence").value.trim();
+
+      if (!word || !definition || !sentence) {
+        alert("Please fill everything!");
         return;
       }
-      showQuestion();
+
+      const savedWords = getSavedWords();
+      savedWords.push({ word, definition, sentence });
+      localStorage.setItem("magicWordLab", JSON.stringify(savedWords));
+
+      document.getElementById("lab-word").value = "";
+      document.getElementById("lab-definition").value = "";
+      document.getElementById("lab-sentence").value = "";
+
+      renderSavedWords();
     }
 
-    function setActiveNav(screen) {
-      for (let i = 0; i < 4; i += 1) {
-        const btn = document.getElementById(`nav-${i}`);
-        if (btn) btn.classList.toggle('active', i === screen);
+    function renderSavedWords() {
+      const savedWords = getSavedWords();
+      const container = document.getElementById("saved-words");
+
+      if (!savedWords.length) {
+        container.innerHTML = "<p>No saved words yet.</p>";
+        return;
       }
+
+      container.innerHTML = savedWords.map(item => `
+        <div class="saved-word">
+          <div><strong>Word:</strong> ${item.word}</div>
+          <div><strong>Definition:</strong> ${item.definition}</div>
+          <div><strong>Sentence:</strong> ${item.sentence}</div>
+        </div>
+      `).join("");
     }
 
-    function navigate(screen) {
-      for (let i = 0; i < 4; i += 1) {
-        const section = document.getElementById(`screen-${i}`);
-        if (section) section.classList.add('screen-hidden');
-      }
-
-      const activeScreen = document.getElementById(`screen-${screen}`);
-      if (activeScreen) activeScreen.classList.remove('screen-hidden');
-      setActiveNav(screen);
-
-      if (screen === 1) loadLearnPage();
-      if (screen === 2) loadMixSelects();
-      if (screen === 3) startQuiz();
-    }
-
-    function loadStars() {
-      const saved = parseInt(localStorage.getItem('magicStars'), 10);
-      totalStars = Number.isNaN(saved) ? 0 : saved;
-      document.getElementById('star-count').textContent = totalStars;
-    }
-
-    function saveStars() {
-      localStorage.setItem('magicStars', String(totalStars));
-      document.getElementById('star-count').textContent = totalStars;
-    }
-
-    function showRewards() {
-      alert(`You have ${totalStars} stars!\nKeep learning with King George the Beaver! 🦫👑`);
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      loadStars();
-      loadLearnPage();
-      loadMixSelects();
-      navigate(0);
-    });
+    renderWordParts();
+    populateMixSelectors();
+    renderSavedWords();
   </script>
 </body>
 </html>
