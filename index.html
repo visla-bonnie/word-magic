@@ -18,76 +18,76 @@
             background: linear-gradient(90deg, #FFB3BA, #FFFFBA);
         }
         
+        .king-george {
+            animation: floatAndSpin 4s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        @keyframes floatAndSpin {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(8deg); }
+        }
+        
         .word-part {
-            padding: 16px 20px;
+            padding: 16px 22px;
             margin: 8px;
             border-radius: 9999px;
-            font-size: 1.2rem;
+            font-size: 1.18rem;
             font-weight: 700;
             box-shadow: 6px 6px 0px #E0BBFF;
             cursor: pointer;
             position: relative;
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
         
         .word-part:hover {
-            transform: scale(1.1) rotate(3deg);
-            box-shadow: 8px 8px 0px #FFB3BA;
+            transform: scale(1.08) rotate(4deg);
+            box-shadow: 10px 10px 0px #FFB3BA;
         }
         
         .tooltip {
             position: absolute;
-            bottom: 120%;
+            bottom: 130%;
             left: 50%;
             transform: translateX(-50%);
             background: #5D2E8C;
             color: white;
-            padding: 14px 20px;
-            border-radius: 20px;
+            padding: 16px 22px;
+            border-radius: 22px;
             font-size: 1rem;
-            white-space: nowrap;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.3);
             z-index: 100;
+            min-width: 240px;
             text-align: left;
-            min-width: 220px;
         }
         
         .word-part:hover .tooltip {
             opacity: 1;
-            transform: translateX(-50%) translateY(-10px);
-        }
-        
-        .king-george {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            transform: translateX(-50%) translateY(-15px);
         }
     </style>
 </head>
 <body>
-    <!-- Header with King George -->
-    <div class="header sticky top-0 z-50 px-8 py-5 flex items-center justify-between shadow-xl">
-        <div class="flex items-center gap-4">
+    <!-- Header -->
+    <div class="header sticky top-0 z-50 px-8 py-5 flex items-center justify-between shadow-2xl">
+        <div class="flex items-center gap-5">
             <div class="king-george text-6xl">🦫👑</div>
             <div>
                 <h1 class="text-4xl font-bold text-[#5D2E8C]">Magic Word Parts House</h1>
-                <p class="text-[#5D2E8C]/80 text-lg">with King George the Beaver 👑</p>
+                <p class="text-[#5D2E8C]/80 text-xl">with King George the Beaver 🦫👑</p>
             </div>
         </div>
         
         <div class="flex items-center gap-6">
-            <div onclick="showRewards()" class="flex items-center bg-white rounded-full px-6 py-3 cursor-pointer hover:scale-110 transition">
+            <div onclick="showRewards()" class="flex items-center bg-white rounded-full px-7 py-3 cursor-pointer hover:scale-110 transition">
                 <span class="text-4xl">⭐</span>
                 <span id="star-count" class="font-bold text-3xl ml-3 text-[#FFB3BA]">0</span>
             </div>
             
-            <div class="flex bg-white rounded-full p-1 shadow">
+            <div class="flex bg-white rounded-full p-1 shadow-inner">
                 <button onclick="navigate(0)" id="nav-0" class="nav-btn px-6 py-3 rounded-full font-bold text-lg">🏠 Home</button>
                 <button onclick="navigate(1)" id="nav-1" class="nav-btn px-6 py-3 rounded-full font-bold text-lg">📚 Learn</button>
                 <button onclick="navigate(2)" id="nav-2" class="nav-btn px-6 py-3 rounded-full font-bold text-lg">🎲 Mix & Match</button>
@@ -96,42 +96,28 @@
         </div>
     </div>
 
-    <div class="max-w-6xl mx-auto px-6 pt-12">
+    <div class="max-w-7xl mx-auto px-8 pt-12">
         
-        <!-- Home Screen -->
-        <div id="screen-0">
-            <div class="text-center py-16">
-                <div class="text-8xl mb-8 king-george">🦫👑🍭</div>
-                <h1 class="text-6xl font-bold text-[#5D2E8C] mb-4">Welcome to Magic Word Parts House!</h1>
-                <p class="text-3xl text-[#5D2E8C]/70">Learn with King George the Beaver 🦫</p>
-                <p class="text-2xl mt-6">Prefixes • Roots • Suffixes in a fun way!</p>
-                
-                <div class="grid grid-cols-3 gap-8 mt-20 max-w-4xl mx-auto">
-                    <div onclick="navigate(1)" class="card bg-[#BAE1FF] p-12 rounded-3xl text-center cursor-pointer hover:scale-105">
-                        <div class="text-8xl mb-6">🔵</div>
-                        <h3 class="text-4xl font-bold">Prefixes</h3>
-                    </div>
-                    <div onclick="navigate(1)" class="card bg-[#BAFFC9] p-12 rounded-3xl text-center cursor-pointer hover:scale-105">
-                        <div class="text-8xl mb-6">🟢</div>
-                        <h3 class="text-4xl font-bold">Roots</h3>
-                    </div>
-                    <div onclick="navigate(1)" class="card bg-[#FFB3BA] p-12 rounded-3xl text-center cursor-pointer hover:scale-105">
-                        <div class="text-8xl mb-6">🔴</div>
-                        <h3 class="text-4xl font-bold">Suffixes</h3>
-                    </div>
-                </div>
-            </div>
+        <!-- Home -->
+        <div id="screen-0" class="text-center py-20">
+            <div class="king-george text-9xl mb-8">🦫👑🍭</div>
+            <h1 class="text-6xl font-bold text-[#5D2E8C] mb-4">Welcome to Magic Word Parts House!</h1>
+            <p class="text-3xl text-[#5D2E8C]/70">Learn with King George the Beaver 🦫</p>
         </div>
 
-        <!-- Learn Screen - with hover tooltips -->
+        <!-- Learn Screen - Full List with Hover -->
         <div id="screen-1" class="hidden">
-            <h2 class="text-5xl font-bold text-center mb-12 text-[#5D2E8C]">Colorful Word Parts with King George 🦫</h2>
+            <div class="flex justify-center items-center gap-6 mb-12">
+                <h2 class="text-5xl font-bold text-[#5D2E8C]">Colorful Word Parts with King George</h2>
+                <div class="king-george text-7xl">🦫👑</div>
+            </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                
                 <!-- Prefixes -->
                 <div>
                     <div class="flex items-center gap-4 mb-8">
-                        <div class="text-5xl">🔵</div>
+                        <div class="w-12 h-12 bg-[#BAE1FF] rounded-full flex items-center justify-center text-4xl">🔵</div>
                         <h3 class="text-4xl font-bold text-[#5D2E8C]">Prefixes</h3>
                     </div>
                     <div id="prefix-list" class="flex flex-wrap"></div>
@@ -140,7 +126,7 @@
                 <!-- Roots -->
                 <div>
                     <div class="flex items-center gap-4 mb-8">
-                        <div class="text-5xl">🟢</div>
+                        <div class="w-12 h-12 bg-[#BAFFC9] rounded-full flex items-center justify-center text-4xl">🟢</div>
                         <h3 class="text-4xl font-bold text-[#5D2E8C]">Roots</h3>
                     </div>
                     <div id="root-list" class="flex flex-wrap"></div>
@@ -149,58 +135,120 @@
                 <!-- Suffixes -->
                 <div>
                     <div class="flex items-center gap-4 mb-8">
-                        <div class="text-5xl">🔴</div>
+                        <div class="w-12 h-12 bg-[#FFB3BA] rounded-full flex items-center justify-center text-4xl">🔴</div>
                         <h3 class="text-4xl font-bold text-[#5D2E8C]">Suffixes</h3>
                     </div>
                     <div id="suffix-list" class="flex flex-wrap"></div>
                 </div>
             </div>
         </div>
-
-        <!-- Mix & Match and Quiz screens are kept the same as before (I can add them if needed) -->
     </div>
 
     <script>
-        // Data with cute examples for kids
+        // Full data from your original image
         const prefixes = [
             {part: "anti-", meaning: "against", examples: ["antibiotic", "antifreeze", "antidote"]},
-            {part: "auto-", meaning: "self", examples: ["autograph", "automatic", "autopilot"]},
-            {part: "bi-", meaning: "two", examples: ["bicycle", "bilingual", "binoculars"]},
-            {part: "circum-", meaning: "around", examples: ["circumference", "circumnavigate"]},
+            {part: "auto-", meaning: "self", examples: ["autograph", "automatic"]},
+            {part: "bi-", meaning: "two", examples: ["bicycle", "binoculars"]},
+            {part: "circum-", meaning: "around", examples: ["circumference"]},
             {part: "co-", meaning: "together", examples: ["cooperate", "coauthor"]},
-            {part: "dis-", meaning: "not, apart", examples: ["disappear", "dislike", "disconnect"]},
-            {part: "pre-", meaning: "before", examples: ["preview", "predict", "preheat"]},
-            {part: "re-", meaning: "again", examples: ["redo", "rewrite", "replay"]},
-            {part: "sub-", meaning: "under", examples: ["submarine", "subway", "subtitle"]},
-            {part: "super-", meaning: "above", examples: ["superhero", "supermarket"]}
+            {part: "de-", meaning: "down, away", examples: ["descend", "depart"]},
+            {part: "dis-", meaning: "not, apart", examples: ["disappear", "dislike"]},
+            {part: "ex-", meaning: "out of", examples: ["exit", "export"]},
+            {part: "extra-", meaning: "beyond", examples: ["extraordinary"]},
+            {part: "hyper-", meaning: "over, excessive", examples: ["hyperactive"]},
+            {part: "hypo-", meaning: "under", examples: ["hypoallergenic"]},
+            {part: "in-", meaning: "not, in", examples: ["invisible", "inside"]},
+            {part: "inter-", meaning: "between", examples: ["international"]},
+            {part: "intra-", meaning: "within", examples: ["intravenous"]},
+            {part: "macro-", meaning: "large", examples: ["macroeconomics"]},
+            {part: "micro-", meaning: "small", examples: ["microscope"]},
+            {part: "mono-", meaning: "one", examples: ["monologue"]},
+            {part: "multi-", meaning: "many", examples: ["multicolor"]},
+            {part: "neo-", meaning: "new", examples: ["neonatal"]},
+            {part: "non-", meaning: "not", examples: ["nonstop"]},
+            {part: "omni-", meaning: "all", examples: ["omnivore"]},
+            {part: "pan-", meaning: "all", examples: ["panorama"]},
+            {part: "peri-", meaning: "around", examples: ["perimeter"]},
+            {part: "poly-", meaning: "many", examples: ["polygon"]},
+            {part: "post-", meaning: "after", examples: ["postpone"]},
+            {part: "pre-", meaning: "before", examples: ["preview", "predict"]},
+            {part: "re-", meaning: "again", examples: ["redo", "rewrite"]},
+            {part: "sub-", meaning: "under", examples: ["submarine", "subtitle"]},
+            {part: "super-", meaning: "above", examples: ["superhero"]},
+            {part: "trans-", meaning: "across", examples: ["transport"]}
         ];
 
         const roots = [
-            {part: "bio", meaning: "life", examples: ["biology", "biography", "biologist"]},
-            {part: "chron", meaning: "time", examples: ["chronology", "chronicle", "synchronize"]},
-            {part: "geo", meaning: "earth", examples: ["geography", "geology", "geometry"]},
-            {part: "graph", meaning: "write", examples: ["autograph", "photograph", "telegraph"]},
-            {part: "hydr", meaning: "water", examples: ["hydrate", "hydroplane", "dehydrate"]},
-            {part: "logy", meaning: "study of", examples: ["biology", "zoology", "psychology"]},
+            {part: "bio", meaning: "life", examples: ["biology", "biography"]},
+            {part: "chron", meaning: "time", examples: ["chronology", "synchronize"]},
+            {part: "dict", meaning: "say", examples: ["predict", "dictionary"]},
+            {part: "form", meaning: "shape", examples: ["transform", "uniform"]},
+            {part: "geo", meaning: "earth", examples: ["geography", "geology"]},
+            {part: "graph", meaning: "write", examples: ["autograph", "photograph"]},
+            {part: "hydr", meaning: "water", examples: ["hydrate", "hydroplane"]},
+            {part: "ject", meaning: "throw", examples: ["project", "reject"]},
+            {part: "logy", meaning: "study", examples: ["biology", "psychology"]},
+            {part: "lumin", meaning: "light", examples: ["illuminate"]},
+            {part: "magn", meaning: "big", examples: ["magnificent"]},
+            {part: "meter", meaning: "measure", examples: ["thermometer"]},
+            {part: "morph", meaning: "shape", examples: ["metamorphosis"]},
+            {part: "path", meaning: "feeling", examples: ["sympathy"]},
+            {part: "phon", meaning: "sound", examples: ["telephone"]},
             {part: "photo", meaning: "light", examples: ["photograph", "photosynthesis"]},
-            {part: "scope", meaning: "see", examples: ["telescope", "microscope", "kaleidoscope"]},
-            {part: "tele", meaning: "far", examples: ["television", "telephone", "telescope"]}
+            {part: "port", meaning: "carry", examples: ["transport", "export"]},
+            {part: "scope", meaning: "see", examples: ["telescope", "microscope"]},
+            {part: "scrib/script", meaning: "write", examples: ["describe", "manuscript"]},
+            {part: "spect", meaning: "look", examples: ["inspect", "spectator"]},
+            {part: "struct", meaning: "build", examples: ["construct"]},
+            {part: "tele", meaning: "far", examples: ["television", "telephone"]},
+            {part: "therm", meaning: "heat", examples: ["thermometer"]},
+            {part: "tract", meaning: "pull", examples: ["tractor", "attract"]},
+            {part: "vac", meaning: "empty", examples: ["vacuum"]},
+            {part: "vent", meaning: "come", examples: ["prevent", "adventure"]},
+            {part: "vid/vis", meaning: "see", examples: ["video", "vision"]},
+            {part: "voc", meaning: "voice", examples: ["vocal", "vocabulary"]},
+            {part: "zo", meaning: "animal", examples: ["zoo", "zoology"]},
+            {part: "ped", meaning: "foot", examples: ["pedal", "pedestrian"]}
         ];
 
         const suffixes = [
-            {part: "-able", meaning: "can be", examples: ["readable", "lovable", "breakable"]},
-            {part: "-ful", meaning: "full of", examples: ["beautiful", "colorful", "helpful"]},
-            {part: "-less", meaning: "without", examples: ["hopeless", "fearless", "careless"]},
+            {part: "-able", meaning: "can be", examples: ["readable", "lovable"]},
+            {part: "-acy", meaning: "state", examples: ["democracy"]},
+            {part: "-al", meaning: "related to", examples: ["personal"]},
+            {part: "-ance", meaning: "quality", examples: ["importance"]},
+            {part: "-ant", meaning: "one who", examples: ["assistant"]},
+            {part: "-arium", meaning: "place for", examples: ["aquarium"]},
+            {part: "-ation", meaning: "process", examples: ["information"]},
+            {part: "-dom", meaning: "state of being", examples: ["freedom"]},
+            {part: "-er", meaning: "one who", examples: ["teacher"]},
+            {part: "-esque", meaning: "like", examples: ["picturesque"]},
+            {part: "-ful", meaning: "full of", examples: ["beautiful", "colorful"]},
+            {part: "-hood", meaning: "state", examples: ["childhood"]},
+            {part: "-ible", meaning: "capable of", examples: ["visible"]},
+            {part: "-ify", meaning: "make", examples: ["simplify"]},
+            {part: "-ion", meaning: "act", examples: ["action"]},
+            {part: "-ish", meaning: "like", examples: ["childish"]},
+            {part: "-ism", meaning: "belief", examples: ["optimism"]},
+            {part: "-ist", meaning: "person", examples: ["artist", "scientist"]},
+            {part: "-ity", meaning: "state", examples: ["activity"]},
+            {part: "-less", meaning: "without", examples: ["fearless", "hopeless"]},
+            {part: "-logist", meaning: "specialist", examples: ["biologist"]},
+            {part: "-ment", meaning: "result", examples: ["enjoyment"]},
+            {part: "-ness", meaning: "state", examples: ["happiness"]},
+            {part: "-oid", meaning: "resembling", examples: ["humanoid"]},
             {part: "-ology", meaning: "study of", examples: ["biology", "zoology"]},
-            {part: "-phobia", meaning: "fear of", examples: ["arachnophobia", "claustrophobia"]},
-            {part: "-ist", meaning: "person who", examples: ["artist", "scientist", "dentist"]}
+            {part: "-ous", meaning: "full of", examples: ["famous"]},
+            {part: "-phile", meaning: "lover of", examples: ["bibliophile"]},
+            {part: "-phobia", meaning: "fear of", examples: ["arachnophobia"]},
+            {part: "-y", meaning: "characterized by", examples: ["cloudy"]}
         ];
 
         function createWordPart(item, colorClass) {
             const div = document.createElement('div');
-            div.className = `word-part ${colorClass} inline-flex items-center`;
+            div.className = `word-part ${colorClass}`;
             div.innerHTML = `
-                ${item.part} <span class="ml-2 text-sm opacity-80">(${item.meaning})</span>
+                ${item.part} <span class="text-sm opacity-75">(${item.meaning})</span>
                 <div class="tooltip">
                     <strong>Examples:</strong><br>
                     ${item.examples.map(ex => `• ${ex}`).join('<br>')}
@@ -220,10 +268,11 @@
             suffixes.forEach(item => sList.appendChild(createWordPart(item, 'bg-[#FFB3BA] text-[#9F1239]')));
         }
 
-        // Simple navigation and stars (same as before)
         function navigate(screen) {
-            document.querySelectorAll('#screen-0, #screen-1').forEach(s => s.classList.add('hidden'));
-            document.getElementById('screen-' + screen).classList.remove('hidden');
+            document.querySelectorAll('.hidden').forEach(el => el.classList.add('hidden'));
+            if (document.getElementById('screen-' + screen)) {
+                document.getElementById('screen-' + screen).classList.remove('hidden');
+            }
         }
 
         let totalStars = 0;
@@ -231,22 +280,8 @@
             totalStars = parseInt(localStorage.getItem('magicStars')) || 0;
             document.getElementById('star-count').textContent = totalStars;
         }
-        function addStars(num) {
-            totalStars += num;
-            localStorage.setItem('magicStars', totalStars);
-            document.getElementById('star-count').textContent = totalStars;
-        }
         function showRewards() {
-            alert("🎉 You have " + totalStars + " stars! Keep learning with King George! 🦫");
-        }
-
-        // Launch colorful confetti when correct
-        function launchConfetti() {
-            for (let i = 0; i < 60; i++) {
-                setTimeout(() => {
-                    console.log("✨ Confetti!");
-                }, i * 10);
-            }
+            alert(`🎉 You have ${totalStars} stars!\nKeep playing with King George the Beaver! 🦫👑`);
         }
 
         window.onload = () => {
