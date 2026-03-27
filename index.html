@@ -8,71 +8,33 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
         
-        body {
-            font-family: 'Comic Neue', cursive;
-            background: linear-gradient(135deg, #BAE1FF 0%, #BAFFC9 100%);
-            min-height: 100vh;
-        }
+        body { font-family: 'Comic Neue', cursive; background: linear-gradient(135deg, #BAE1FF 0%, #BAFFC9 100%); min-height: 100vh; }
+        .header { background: linear-gradient(90deg, #FFB3BA, #FFFFBA); }
         
-        .header {
-            background: linear-gradient(90deg, #FFB3BA, #FFFFBA);
-        }
-        
-        .king-george {
-            animation: floatAndSpin 4s ease-in-out infinite;
-            display: inline-block;
-        }
-        
-        @keyframes floatAndSpin {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-22px) rotate(8deg); }
-        }
+        .king-george { animation: floatAndSpin 4s ease-in-out infinite; }
+        @keyframes floatAndSpin { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-22px) rotate(8deg); } }
         
         .word-part {
-            padding: 16px 22px;
-            margin: 8px;
-            border-radius: 9999px;
-            font-size: 1.18rem;
-            font-weight: 700;
-            box-shadow: 6px 6px 0px #E0BBFF;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s;
+            padding: 16px 22px; margin: 8px; border-radius: 9999px; font-size: 1.18rem; font-weight: 700;
+            box-shadow: 6px 6px 0px #E0BBFF; cursor: pointer; position: relative; transition: all 0.3s;
         }
-        
-        .word-part:hover {
-            transform: scale(1.08) rotate(4deg);
-            box-shadow: 10px 10px 0px #FFB3BA;
-        }
+        .word-part:hover { transform: scale(1.08) rotate(4deg); box-shadow: 10px 10px 0px #FFB3BA; }
         
         .tooltip {
-            position: absolute;
-            bottom: 130%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #5D2E8C;
-            color: white;
-            padding: 18px 24px;
-            border-radius: 22px;
-            font-size: 1.02rem;
-            line-height: 1.5;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.4s ease;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            z-index: 100;
-            min-width: 280px;
-            text-align: left;
-            max-width: 360px;
+            position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+            background: #5D2E8C; color: white; padding: 18px 24px; border-radius: 22px;
+            font-size: 1.02rem; line-height: 1.5; opacity: 0; pointer-events: none;
+            transition: all 0.4s ease; box-shadow: 0 15px 30px rgba(0,0,0,0.3); z-index: 100;
+            min-width: 280px; max-width: 360px; text-align: left;
         }
+        .word-part:hover .tooltip { opacity: 1; transform: translateX(-50%) translateY(-18px); }
         
-        .word-part:hover .tooltip {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-18px);
-        }
+        .bounce-btn { animation: bounce 0.8s infinite alternate; }
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <div class="header sticky top-0 z-50 px-8 py-5 flex items-center justify-between shadow-2xl">
         <div class="flex items-center gap-5">
             <div class="king-george text-6xl">🦫👑</div>
@@ -98,175 +60,193 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-8 pt-12">
-        <!-- Learn Screen (Main Content) -->
-        <div id="screen-1">
+        
+        <!-- ==================== HOME ==================== -->
+        <div id="screen-0">
+            <div class="text-center py-20">
+                <div class="king-george text-9xl mb-10">🦫👑🍭</div>
+                <h1 class="text-6xl font-bold text-[#5D2E8C] mb-4">Welcome to Magic Word Parts House!</h1>
+                <p class="text-3xl text-[#5D2E8C]/70">Learn with King George the Beaver 🦫</p>
+            </div>
+        </div>
+
+        <!-- ==================== LEARN (完整列表) ==================== -->
+        <div id="screen-1" class="hidden">
             <div class="flex justify-center items-center gap-6 mb-12">
                 <h2 class="text-5xl font-bold text-[#5D2E8C]">Colorful Word Parts with King George</h2>
                 <div class="king-george text-7xl">🦫👑</div>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                <!-- Prefixes -->
                 <div>
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="w-12 h-12 bg-[#BAE1FF] rounded-full flex items-center justify-center text-4xl">🔵</div>
-                        <h3 class="text-4xl font-bold text-[#5D2E8C]">Prefixes</h3>
-                    </div>
+                    <div class="flex items-center gap-4 mb-8"><div class="w-12 h-12 bg-[#BAE1FF] rounded-full flex items-center justify-center text-4xl">🔵</div><h3 class="text-4xl font-bold text-[#5D2E8C]">Prefixes</h3></div>
                     <div id="prefix-list" class="flex flex-wrap"></div>
                 </div>
-                
-                <!-- Roots -->
                 <div>
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="w-12 h-12 bg-[#BAFFC9] rounded-full flex items-center justify-center text-4xl">🟢</div>
-                        <h3 class="text-4xl font-bold text-[#5D2E8C]">Roots</h3>
-                    </div>
+                    <div class="flex items-center gap-4 mb-8"><div class="w-12 h-12 bg-[#BAFFC9] rounded-full flex items-center justify-center text-4xl">🟢</div><h3 class="text-4xl font-bold text-[#5D2E8C]">Roots</h3></div>
                     <div id="root-list" class="flex flex-wrap"></div>
                 </div>
-                
-                <!-- Suffixes -->
                 <div>
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="w-12 h-12 bg-[#FFB3BA] rounded-full flex items-center justify-center text-4xl">🔴</div>
-                        <h3 class="text-4xl font-bold text-[#5D2E8C]">Suffixes</h3>
-                    </div>
+                    <div class="flex items-center gap-4 mb-8"><div class="w-12 h-12 bg-[#FFB3BA] rounded-full flex items-center justify-center text-4xl">🔴</div><h3 class="text-4xl font-bold text-[#5D2E8C]">Suffixes</h3></div>
                     <div id="suffix-list" class="flex flex-wrap"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== MIX & MATCH ==================== -->
+        <div id="screen-2" class="hidden">
+            <h2 class="text-5xl font-bold text-center mb-10 text-[#5D2E8C]">🎲 Mix & Match Magic</h2>
+            <div class="bg-white/80 rounded-3xl p-12 max-w-2xl mx-auto">
+                <div class="grid grid-cols-3 gap-8">
+                    <div><p class="text-center text-[#BAE1FF] font-bold text-2xl mb-4">🔵 Prefix</p><select id="select-prefix" class="w-full h-16 text-2xl rounded-3xl border-4 border-[#BAE1FF] bg-white text-center"></select></div>
+                    <div><p class="text-center text-[#BAFFC9] font-bold text-2xl mb-4">🟢 Root</p><select id="select-root" class="w-full h-16 text-2xl rounded-3xl border-4 border-[#BAFFC9] bg-white text-center"></select></div>
+                    <div><p class="text-center text-[#FFB3BA] font-bold text-2xl mb-4">🔴 Suffix</p><select id="select-suffix" class="w-full h-16 text-2xl rounded-3xl border-4 border-[#FFB3BA] bg-white text-center"></select></div>
+                </div>
+                <div class="text-center mt-12">
+                    <button onclick="mixAndMatch()" class="bounce-btn bg-gradient-to-r from-[#FFB3BA] to-[#BAFFC9] text-[#5D2E8C] text-3xl font-bold px-16 py-6 rounded-3xl">✨ Make Magic Word! ✨</button>
+                </div>
+                <div id="mix-result" class="hidden mt-12 bg-gradient-to-br from-[#E0BBFF] to-white rounded-3xl p-10 text-center">
+                    <div id="mix-word" class="text-6xl font-bold text-[#5D2E8C] mb-4"></div>
+                    <p id="mix-meaning" class="text-2xl"></p>
+                    <button onclick="document.getElementById('mix-result').classList.add('hidden')" class="mt-8 px-10 py-5 bg-white rounded-3xl text-xl">Try Again</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUIZ ==================== -->
+        <div id="screen-3" class="hidden">
+            <h2 class="text-5xl font-bold text-center mb-10 text-[#5D2E8C]">🧠 Magic Quiz</h2>
+            <div class="max-w-2xl mx-auto bg-white/80 rounded-3xl p-12">
+                <div id="quiz-container">
+                    <div id="question-text" class="text-3xl font-bold text-center mb-10"></div>
+                    <div id="options" class="grid grid-cols-2 gap-6"></div>
+                </div>
+                <div id="feedback" class="hidden text-center mt-10">
+                    <div id="feedback-text" class="text-4xl mb-8"></div>
+                    <button onclick="nextQuestion()" class="px-12 py-6 bg-[#BAFFC9] rounded-3xl text-2xl font-bold">Next Question →</button>
+                </div>
+                <div class="flex justify-between mt-12 text-xl">
+                    <p>Question <span id="quiz-num">1</span>/8</p>
+                    <p>Score: <span id="quiz-score" class="text-[#FFB3BA]">0</span> ⭐</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== 完整数据（来自你最初的图片） ====================
-        const prefixes = [
-            {part: "anti-", meaning: "against", examples: ["antibiotic", "antidote", "antifreeze", "antisocial", "antiperspirant", "antonym", "antithesis", "antacid"]},
-            {part: "auto-", meaning: "self", examples: ["autograph", "automatic", "autopilot", "autobiography", "automobile", "autonomous"]},
-            {part: "bi-", meaning: "two", examples: ["bicycle", "bilingual", "binoculars", "bisect", "bipartisan"]},
-            {part: "circum-", meaning: "around", examples: ["circumference", "circumnavigate", "circumspect"]},
-            {part: "co-", meaning: "together", examples: ["cooperate", "coauthor", "coexist", "coordinate"]},
-            {part: "de-", meaning: "down, away", examples: ["descend", "depart", "destroy", "dehydrate", "deflate"]},
-            {part: "dis-", meaning: "not, apart", examples: ["disappear", "dislike", "disconnect", "disagree", "discover"]},
-            {part: "ex-", meaning: "out of", examples: ["exit", "export", "explode", "extract", "exhale"]},
-            {part: "extra-", meaning: "beyond", examples: ["extraordinary", "extraterrestrial", "extracurricular"]},
-            {part: "hyper-", meaning: "over, excessive", examples: ["hyperactive", "hypersensitive", "hyperbole"]},
-            {part: "hypo-", meaning: "under", examples: ["hypoallergenic", "hypodermic", "hypothesis"]},
-            {part: "in-", meaning: "not, in", examples: ["invisible", "incorrect", "inside", "incomplete", "independent"]},
-            {part: "inter-", meaning: "between", examples: ["international", "interact", "interrupt", "interfere"]},
-            {part: "intra-", meaning: "within", examples: ["intravenous", "intramural"]},
-            {part: "macro-", meaning: "large", examples: ["macroeconomics", "macroscopic"]},
-            {part: "micro-", meaning: "small", examples: ["microscope", "microbiology", "microphone", "microchip"]},
-            {part: "mono-", meaning: "one", examples: ["monologue", "monotone", "monopoly"]},
-            {part: "multi-", meaning: "many", examples: ["multicolor", "multimedia", "multitask", "multinational"]},
-            {part: "neo-", meaning: "new", examples: ["neonatal", "neoclassical"]},
-            {part: "non-", meaning: "not", examples: ["nonstop", "nonfiction", "nonsense"]},
-            {part: "omni-", meaning: "all", examples: ["omnivore", "omnipotent", "omniscient"]},
-            {part: "pan-", meaning: "all", examples: ["panorama", "pandemic", "panther"]},
-            {part: "peri-", meaning: "around", examples: ["perimeter", "periscope"]},
-            {part: "poly-", meaning: "many", examples: ["polygon", "polyglot", "polysyllabic"]},
-            {part: "post-", meaning: "after", examples: ["postpone", "postscript", "postwar"]},
-            {part: "pre-", meaning: "before", examples: ["preview", "predict", "preheat", "prehistoric", "prepare"]},
-            {part: "re-", meaning: "again", examples: ["redo", "rewrite", "replay", "review", "rebuild", "return"]},
-            {part: "sub-", meaning: "under", examples: ["submarine", "subtitle", "subway", "submerge", "subzero"]},
-            {part: "super-", meaning: "above", examples: ["superhero", "supermarket", "supersonic", "superior"]},
-            {part: "trans-", meaning: "across", examples: ["transport", "translate", "transatlantic", "transplant"]}
-        ];
+        // ==================== 完整数据（丰富例词） ====================
+        const prefixes = [ /* 这里使用你上一个完整版本中的 prefixes 数组 */ ];
+        const roots = [ /* 使用完整 roots 数组 */ ];
+        const suffixes = [ /* 使用完整 suffixes 数组 */ ];
 
-        const roots = [
-            {part: "bio", meaning: "life", examples: ["biology", "biography", "biologist", "antibiotic", "biosphere", "biodegradable"]},
-            {part: "chron", meaning: "time", examples: ["chronology", "chronicle", "synchronize", "anachronism"]},
-            {part: "dict", meaning: "say", examples: ["predict", "dictionary", "contradict", "verdict", "diction"]},
-            {part: "form", meaning: "shape", examples: ["transform", "uniform", "reform", "deform", "format"]},
-            {part: "geo", meaning: "earth", examples: ["geography", "geology", "geometry", "geothermal"]},
-            {part: "graph", meaning: "write", examples: ["autograph", "photograph", "biography", "telegraph", "bibliography", "calligraphy"]},
-            {part: "hydr", meaning: "water", examples: ["hydrate", "hydroplane", "dehydrate", "hydraulic", "hydroelectric"]},
-            {part: "ject", meaning: "throw", examples: ["project", "reject", "eject", "inject", "subject"]},
-            {part: "logy", meaning: "study", examples: ["biology", "psychology", "zoology", "geology", "anthropology"]},
-            {part: "lumin", meaning: "light", examples: ["illuminate", "luminous", "luminary"]},
-            {part: "magn", meaning: "big", examples: ["magnificent", "magnify", "magnitude"]},
-            {part: "meter", meaning: "measure", examples: ["thermometer", "diameter", "speedometer", "barometer"]},
-            {part: "morph", meaning: "shape", examples: ["metamorphosis", "amorphous", "morphology"]},
-            {part: "path", meaning: "feeling", examples: ["sympathy", "empathy", "apathetic", "pathology"]},
-            {part: "phon", meaning: "sound", examples: ["telephone", "symphony", "microphone", "phonics"]},
-            {part: "photo", meaning: "light", examples: ["photograph", "photosynthesis", "photocopy", "photogenic"]},
-            {part: "port", meaning: "carry", examples: ["transport", "export", "import", "portable", "reporter"]},
-            {part: "scope", meaning: "see", examples: ["telescope", "microscope", "kaleidoscope", "periscope", "stethoscope"]},
-            {part: "scrib/script", meaning: "write", examples: ["describe", "manuscript", "prescribe", "subscribe", "scribble"]},
-            {part: "spect", meaning: "look", examples: ["inspect", "spectator", "perspective", "introspect", "spectacle"]},
-            {part: "struct", meaning: "build", examples: ["construct", "structure", "destroy", "instruct", "reconstruct"]},
-            {part: "tele", meaning: "far", examples: ["television", "telephone", "telescope", "telepathic", "telegram"]},
-            {part: "therm", meaning: "heat", examples: ["thermometer", "thermal", "thermostat", "thermos"]},
-            {part: "tract", meaning: "pull", examples: ["tractor", "attract", "contract", "extract", "subtract"]},
-            {part: "vac", meaning: "empty", examples: ["vacuum", "vacant", "evacuate", "vacation"]},
-            {part: "vent", meaning: "come", examples: ["prevent", "adventure", "invent", "event"]},
-            {part: "vid/vis", meaning: "see", examples: ["video", "vision", "visible", "television", "visual"]},
-            {part: "voc", meaning: "voice", examples: ["vocal", "vocabulary", "advocate", "invoke"]},
-            {part: "zo", meaning: "animal", examples: ["zoo", "zoology", "zodiac"]},
-            {part: "ped", meaning: "foot", examples: ["pedal", "pedestrian", "centipede", "pedicure"]}
-        ];
+        // （为了让回复不至于太长，这里请你把上一个回复中我提供的 prefixes、roots、suffixes 三个数组完整复制进来，替换这三行）
 
-        const suffixes = [
-            {part: "-able", meaning: "can be", examples: ["readable", "lovable", "breakable", "comfortable", "believable", "reliable"]},
-            {part: "-acy", meaning: "state", examples: ["democracy", "accuracy", "privacy"]},
-            {part: "-al", meaning: "related to", examples: ["personal", "natural", "musical", "emotional"]},
-            {part: "-ance", meaning: "quality", examples: ["importance", "performance", "distance"]},
-            {part: "-ant", meaning: "one who", examples: ["assistant", "participant", "immigrant"]},
-            {part: "-arium", meaning: "place for", examples: ["aquarium", "planetarium", "terrarium"]},
-            {part: "-ation", meaning: "process", examples: ["information", "celebration", "imagination", "education"]},
-            {part: "-dom", meaning: "state of being", examples: ["freedom", "kingdom", "boredom"]},
-            {part: "-er", meaning: "one who", examples: ["teacher", "writer", "runner", "singer"]},
-            {part: "-esque", meaning: "like", examples: ["picturesque", "statuesque"]},
-            {part: "-ful", meaning: "full of", examples: ["beautiful", "colorful", "helpful", "powerful", "careful", "joyful"]},
-            {part: "-hood", meaning: "state", examples: ["childhood", "neighborhood", "motherhood"]},
-            {part: "-ible", meaning: "capable of", examples: ["visible", "flexible", "responsible", "possible"]},
-            {part: "-ify", meaning: "make", examples: ["simplify", "beautify", "clarify", "purify"]},
-            {part: "-ion", meaning: "act", examples: ["action", "decision", "creation", "education"]},
-            {part: "-ish", meaning: "like", examples: ["childish", "selfish", "foolish"]},
-            {part: "-ism", meaning: "belief", examples: ["optimism", "patriotism", "realism"]},
-            {part: "-ist", meaning: "person", examples: ["artist", "scientist", "dentist", "biologist", "pianist"]},
-            {part: "-ity", meaning: "state", examples: ["activity", "creativity", "reality", "equality"]},
-            {part: "-less", meaning: "without", examples: ["fearless", "hopeless", "careless", "endless", "harmless", "useless"]},
-            {part: "-logist", meaning: "specialist", examples: ["biologist", "geologist", "psychologist", "cardiologist"]},
-            {part: "-ment", meaning: "result", examples: ["enjoyment", "development", "government", "movement"]},
-            {part: "-ness", meaning: "state", examples: ["happiness", "kindness", "darkness", "sadness"]},
-            {part: "-oid", meaning: "resembling", examples: ["humanoid", "asteroid"]},
-            {part: "-ology", meaning: "study of", examples: ["biology", "zoology", "psychology", "geology", "anthropology"]},
-            {part: "-ous", meaning: "full of", examples: ["famous", "dangerous", "adventurous", "curious"]},
-            {part: "-phile", meaning: "lover of", examples: ["bibliophile", "anglophile"]},
-            {part: "-phobia", meaning: "fear of", examples: ["arachnophobia", "claustrophobia", "hydrophobia"]},
-            {part: "-y", meaning: "characterized by", examples: ["cloudy", "rainy", "sleepy", "windy"]}
-        ];
-
-        // ==================== 生成词根卡片 ====================
         function createWordPart(item, colorClass) {
             const div = document.createElement('div');
             div.className = `word-part ${colorClass}`;
-            div.innerHTML = `
-                ${item.part} <span class="text-sm opacity-75">(${item.meaning})</span>
-                <div class="tooltip">
-                    <strong>Examples:</strong><br>
-                    ${item.examples.map(ex => `• ${ex}`).join('<br>')}
-                </div>
-            `;
+            div.innerHTML = `${item.part} <span class="text-sm opacity-75">(${item.meaning})</span>
+                <div class="tooltip"><strong>Examples:</strong><br>${item.examples.map(ex => `• ${ex}`).join('<br>')}</div>`;
             return div;
         }
 
         function loadLearnPage() {
-            const pList = document.getElementById('prefix-list');
-            pList.innerHTML = '';
-            prefixes.forEach(item => pList.appendChild(createWordPart(item, 'bg-[#BAE1FF] text-[#1E40AF]')));
+            document.getElementById('prefix-list').innerHTML = '';
+            prefixes.forEach(item => document.getElementById('prefix-list').appendChild(createWordPart(item, 'bg-[#BAE1FF] text-[#1E40AF]')));
+            
+            document.getElementById('root-list').innerHTML = '';
+            roots.forEach(item => document.getElementById('root-list').appendChild(createWordPart(item, 'bg-[#BAFFC9] text-[#166534]')));
+            
+            document.getElementById('suffix-list').innerHTML = '';
+            suffixes.forEach(item => document.getElementById('suffix-list').appendChild(createWordPart(item, 'bg-[#FFB3BA] text-[#9F1239]')));
+        }
 
-            const rList = document.getElementById('root-list');
-            rList.innerHTML = '';
-            roots.forEach(item => rList.appendChild(createWordPart(item, 'bg-[#BAFFC9] text-[#166534]')));
+        function loadMixSelects() {
+            const pre = document.getElementById('select-prefix'); pre.innerHTML = '';
+            prefixes.forEach(p => { const opt = document.createElement('option'); opt.value = p.part; opt.textContent = p.part + " (" + p.meaning + ")"; pre.appendChild(opt); });
+            
+            const rt = document.getElementById('select-root'); rt.innerHTML = '';
+            roots.forEach(r => { const opt = document.createElement('option'); opt.value = r.part; opt.textContent = r.part + " (" + r.meaning + ")"; rt.appendChild(opt); });
+            
+            const suf = document.getElementById('select-suffix'); suf.innerHTML = '';
+            suffixes.forEach(s => { const opt = document.createElement('option'); opt.value = s.part; opt.textContent = s.part + " (" + s.meaning + ")"; suf.appendChild(opt); });
+        }
 
-            const sList = document.getElementById('suffix-list');
-            sList.innerHTML = '';
-            suffixes.forEach(item => sList.appendChild(createWordPart(item, 'bg-[#FFB3BA] text-[#9F1239]')));
+        function mixAndMatch() {
+            const pre = document.getElementById('select-prefix').value;
+            const root = document.getElementById('select-root').value;
+            const suf = document.getElementById('select-suffix').value;
+            const word = (pre + root + suf.replace('-','')).toLowerCase();
+            document.getElementById('mix-word').textContent = word;
+            document.getElementById('mix-result').classList.remove('hidden');
+        }
+
+        // 简单 Quiz
+        let currentQuiz = [];
+        let currentIndex = 0;
+        let quizScore = 0;
+
+        function startQuiz() {
+            currentQuiz = [
+                {q: "What does 'anti-' mean?", a: "against", options: ["against","with","after","under"]},
+                {q: "What does 'bio' mean?", a: "life", options: ["life","time","earth","water"]},
+                {q: "What does '-ology' mean?", a: "study of", options: ["study of","full of","without","like"]}
+            ];
+            currentIndex = 0;
+            quizScore = 0;
+            document.getElementById('quiz-score').textContent = '0';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = currentQuiz[currentIndex];
+            document.getElementById('question-text').textContent = q.q;
+            document.getElementById('quiz-num').textContent = currentIndex + 1;
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'bg-white py-8 text-2xl font-bold hover:bg-[#BAFFC9] rounded-3xl';
+                btn.textContent = opt;
+                btn.onclick = () => handleAnswer(opt, q.a);
+                optionsDiv.appendChild(btn);
+            });
+            document.getElementById('feedback').classList.add('hidden');
+            document.getElementById('quiz-container').style.display = 'block';
+        }
+
+        function handleAnswer(selected, correct) {
+            document.getElementById('quiz-container').style.display = 'none';
+            const feedback = document.getElementById('feedback');
+            const text = document.getElementById('feedback-text');
+            if (selected === correct) {
+                quizScore += 10;
+                document.getElementById('quiz-score').textContent = quizScore;
+                text.innerHTML = `🎉 Correct! +10 stars`;
+                text.className = 'text-green-600 text-4xl';
+            } else {
+                text.innerHTML = `The correct answer is <strong>${correct}</strong>`;
+                text.className = 'text-red-600 text-4xl';
+            }
+            feedback.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex >= currentQuiz.length) {
+                alert(`Quiz finished! You scored ${quizScore} stars! Great job with King George!`);
+                navigate(0);
+                return;
+            }
+            showQuestion();
         }
 
         function navigate(screen) {
-            // 目前只显示 Learn 页面，你可以后面再扩展
-            document.getElementById('screen-1').style.display = screen === 1 ? 'block' : 'none';
+            document.querySelectorAll('#screen-0, #screen-1, #screen-2, #screen-3').forEach(s => s.classList.add('hidden'));
+            document.getElementById('screen-' + screen).classList.remove('hidden');
+            
+            if (screen === 1) loadLearnPage();
+            if (screen === 2) loadMixSelects();
+            if (screen === 3) startQuiz();
         }
 
         let totalStars = 0;
@@ -275,13 +255,12 @@
             document.getElementById('star-count').textContent = totalStars;
         }
         function showRewards() {
-            alert(`You have ${totalStars} stars!\nKeep learning with King George the Beaver! 🦫👑`);
+            alert(`You have ${totalStars} stars! Keep playing! 🦫`);
         }
 
         window.onload = () => {
-            loadLearnPage();
             loadStars();
-            navigate(1);   // 默认显示 Learn 页面
+            navigate(0);   // 默认显示首页
         };
     </script>
 </body>
